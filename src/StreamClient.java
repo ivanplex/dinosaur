@@ -15,7 +15,7 @@ public class StreamClient{
     AudioFormat format = getAudioFormat();
     InputStream is;
     Socket client;
-    String serverName = "localhost";
+    String serverName = "192.168.8.240";
     int port=3000;
     boolean inVoice = true;
 
