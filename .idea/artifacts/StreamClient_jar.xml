@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="StreamClient:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/StreamClient_jar</output-path>
-    <root id="archive" name="dinosaur.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts</output-path>
+    <root id="archive" name="StreamClient.jar">
       <element id="module-output" name="dinosaur" />
     </root>
   </artifact>
