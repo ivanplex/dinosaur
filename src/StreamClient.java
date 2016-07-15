@@ -3,7 +3,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 public class StreamClient{
 
@@ -43,6 +42,8 @@ public class StreamClient{
                 while(inVoice){
                     is = client.getInputStream();
                     byte[] data = new byte[1024];
+                    is.read(data);
+
                     ByteArrayInputStream bais = new ByteArrayInputStream(data);
                     AudioInputStream ais = new AudioInputStream(bais,format,data.length);
                     int bytesRead = 0;
@@ -50,7 +51,7 @@ public class StreamClient{
                         System.out.println("Writing to audio output.");
                         speaker.write(data,0,bytesRead);
 
-                        System.out.println(Arrays.toString(data));
+                        //System.out.println(Arrays.toString(data));
                         //                 bais.reset();
                     }
                     ais.close();
