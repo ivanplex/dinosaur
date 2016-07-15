@@ -8,7 +8,7 @@ public class AudioTest {
 
     public static void main(String[] args) {
 
-        AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+        AudioFormat format = new AudioFormat(16000.0f, 16, 1, true, true);
         TargetDataLine microphone;
         AudioInputStream audioInputStream;
         SourceDataLine sourceDataLine;
@@ -49,7 +49,7 @@ public class AudioTest {
             sourceDataLine.open(format);
             sourceDataLine.start();
             int cnt = 0;
-            byte tempBuffer[] = new byte[10000];
+            byte tempBuffer[] = new byte[100000];
             try {
                 while ((cnt = audioInputStream.read(tempBuffer, 0,tempBuffer.length)) != -1) {
                     if (cnt > 0) {

@@ -55,8 +55,12 @@ public class StreamServer {
                     if (count > 0){
                         System.out.println("Writing buffer to server.");
                         out.write(tmpBuff, 0, count);
+                        //System.out.println(Arrays.toString(tmpBuff));
                     }
                 }
+
+
+
                 mic.drain();
                 mic.close();
                 System.out.println("Stopped listening from mic.");
