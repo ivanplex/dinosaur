@@ -6,7 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="" />
+    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StreamClient.java" afterPath="$PROJECT_DIR$/src/StreamClient.java" />
+    </list>
     <ignored path="dinosaur.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -41,8 +43,8 @@
       <file leaf-file-name="StreamClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/StreamClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53887886">
-              <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.43037975">
+              <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -606,8 +608,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Application.StreamClient" />
-        <item index="1" class="java.lang.String" itemvalue="Application.StreamServer" />
+        <item index="0" class="java.lang.String" itemvalue="Application.StreamServer" />
+        <item index="1" class="java.lang.String" itemvalue="Application.StreamClient" />
         <item index="2" class="java.lang.String" itemvalue="Application.AudioTest" />
       </list>
     </recent_temporary>
@@ -625,12 +627,12 @@
       <workItem from="1468241676133" duration="3307000" />
       <workItem from="1468326971972" duration="3888000" />
       <workItem from="1468594444047" duration="7698000" />
-      <workItem from="1468845988527" duration="1298000" />
+      <workItem from="1468845988527" duration="1380000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16191000" />
+    <option name="totallyTimeSpent" value="16273000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
@@ -736,8 +738,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/StreamClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53887886">
-          <caret line="60" column="4" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.43037975">
+          <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
