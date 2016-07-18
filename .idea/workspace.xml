@@ -6,7 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="" />
+    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StreamClient.java" afterPath="$PROJECT_DIR$/src/StreamClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StreamServer.java" afterPath="$PROJECT_DIR$/src/StreamServer.java" />
+    </list>
     <ignored path="dinosaur.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -32,8 +35,11 @@
         <entry file="file://$PROJECT_DIR$/src/StreamServer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
-              <folding />
+              <caret line="78" column="17" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+              <folding>
+                <element signature="e#1664#1665#0" expanded="true" />
+                <element signature="e#1714#1715#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -41,8 +47,8 @@
       <file leaf-file-name="StreamClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/StreamClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.43037975">
-              <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.53887886">
+              <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,8 +77,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/AudioTest.java" />
-        <option value="$PROJECT_DIR$/src/StreamServer.java" />
         <option value="$PROJECT_DIR$/src/StreamClient.java" />
+        <option value="$PROJECT_DIR$/src/StreamServer.java" />
       </list>
     </option>
   </component>
@@ -625,16 +631,16 @@
       <workItem from="1468241676133" duration="3307000" />
       <workItem from="1468326971972" duration="3888000" />
       <workItem from="1468594444047" duration="7698000" />
-      <workItem from="1468845988527" duration="1575000" />
+      <workItem from="1468845988527" duration="5732000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16468000" />
+    <option name="totallyTimeSpent" value="20625000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -643,7 +649,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25703326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25703326" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -685,7 +691,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1664#1665#0" expanded="true" />
+            <element signature="e#1714#1715#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -729,15 +738,18 @@
     <entry file="file://$PROJECT_DIR$/src/StreamServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="3" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
-          <folding />
+          <caret line="78" column="17" selection-start-line="78" selection-start-column="17" selection-end-line="78" selection-end-column="17" />
+          <folding>
+            <element signature="e#1664#1665#0" expanded="true" />
+            <element signature="e#1714#1715#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/StreamClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43037975">
-          <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.53887886">
+          <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -754,7 +766,7 @@
               <type id="library" />
             </show-content>
           </artifact-editor>
-          <last-edited>AudioTest:jar</last-edited>
+          <last-edited>StreamClient:jar</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

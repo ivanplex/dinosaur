@@ -11,11 +11,10 @@ import java.net.Socket;
 
 
 public class StreamServer {
-    private OutgoingSoudnListener osl = new OutgoingSoudnListener();
+    //private OutgoingSoudnListener osl = new OutgoingSoudnListener();
     boolean outVoice = true;
     AudioFormat format = getAudioFormat();
     private ServerSocket serverSocket;
-    Socket server;
 
 
     private AudioFormat getAudioFormat() {
@@ -28,21 +27,41 @@ public class StreamServer {
         return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
     }
     public StreamServer() throws IOException{
+
+        Socket socket = null;
+
         try{
             System.out.println("Creating Socket...");
             serverSocket = new ServerSocket(3000);
             System.out.println("Socket Created.");
-            osl.runSender();
+
+            while (true) {
+                try {
+                    socket = serverSocket.accept();
+                } catch (IOException e) {
+                    System.out.println("I/O error: " + e);
+                }
+                // new thread for a client
+                new OutgoingSoudnListener(socket).start();
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
     }
-    class OutgoingSoudnListener{
-        public void runSender(){
+
+    public class OutgoingSoudnListener extends Thread {
+
+        protected Socket socket;
+
+        public OutgoingSoudnListener(Socket clientSocket) {
+            this.socket = clientSocket;
+        }
+
+        public void run(){
             try{
-                server = serverSocket.accept();
+                long threadId = Thread.currentThread().getId();
                 System.out.println("Listening from mic.");
-                DataOutputStream out = new DataOutputStream(server.getOutputStream());
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
                 TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
                 mic.open(format);
@@ -53,7 +72,7 @@ public class StreamServer {
                     System.out.println("Reading from mic.");
                     int count = mic.read(tmpBuff,0,tmpBuff.length);
                     if (count > 0){
-                        System.out.println("Writing buffer to server.");
+                        System.out.println(threadId+": Writing buffer to server.");
                         out.write(tmpBuff, 0, count);
                         //System.out.println(Arrays.toString(tmpBuff));
                     }
@@ -64,9 +83,12 @@ public class StreamServer {
                 mic.drain();
                 mic.close();
                 System.out.println("Stopped listening from mic.");
+
+                //System.out.println(threadId+" running.");
             }catch(Exception e){
                 e.printStackTrace();
             }
+
         }
 
     }
