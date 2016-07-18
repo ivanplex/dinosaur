@@ -6,10 +6,8 @@ import java.net.Socket;
 
 public class StreamClient{
 
-    static String serverHostname;
-
-    public StreamClient(String serverHostname) throws IOException{
-        this.serverHostname = serverHostname;
+    public StreamClient(String serverName) throws IOException{
+        this.serverName = serverName;
         isl.runListener();
     }
 
@@ -17,7 +15,7 @@ public class StreamClient{
     AudioFormat format = getAudioFormat();
     InputStream is;
     Socket client;
-    String serverName = serverHostname;
+    String serverName;
     int port=3000;
     boolean inVoice = true;
 
