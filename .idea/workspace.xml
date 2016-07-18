@@ -6,10 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StreamClient.java" afterPath="$PROJECT_DIR$/src/StreamClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/StreamServer.java" afterPath="$PROJECT_DIR$/src/StreamServer.java" />
-    </list>
+    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="" />
     <ignored path="dinosaur.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -631,12 +628,12 @@
       <workItem from="1468241676133" duration="3307000" />
       <workItem from="1468326971972" duration="3888000" />
       <workItem from="1468594444047" duration="7698000" />
-      <workItem from="1468845988527" duration="5732000" />
+      <workItem from="1468845988527" duration="5784000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20625000" />
+    <option name="totallyTimeSpent" value="20677000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
