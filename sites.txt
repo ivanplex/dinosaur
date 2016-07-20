@@ -1,0 +1,2 @@
+http://www.auvidea.eu/index.php/theme-styles/2013-06-22-21-23-34/raspberry-pi-hdmi-in
+https://trac.ffmpeg.org/wiki/StreamingGuide
