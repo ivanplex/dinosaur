@@ -8,19 +8,16 @@ import java.net.Socket;
 
 public class StreamClient{
 
-    public StreamClient(String serverName) throws IOException{
-        this.serverName = serverName;
-        isl.runListener();
-    }
-
-    private IncomingSoundListener isl = new IncomingSoundListener();
-    AudioFormat format = getAudioFormat();
-    InputStream is;
-    Socket client;
+    AudioFormat audioFormat = getAudioFormat();
+    InputStream inputStream;
+    Socket socket;
     String serverName;
     int port=3000;
     boolean inVoice = true;
 
+    public StreamClient(String serverName) throws IOException{
+        this.serverName = serverName;
+    }
 
     private AudioFormat getAudioFormat(){
         float sampleRate = 16000.0F;
@@ -31,34 +28,50 @@ public class StreamClient{
 
         return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
     }
+
     class IncomingSoundListener {
         public void runListener(){
             try{
                 System.out.println("Connecting to server:"+serverName+" Port:"+port);
-                client = new Socket(serverName,port);
-                System.out.println("Connected to: "+client.getRemoteSocketAddress());
+                socket = new Socket(serverName,port);
+                System.out.println("Connected to: "+socket.getRemoteSocketAddress());
+
                 System.out.println("Listening for incoming audio.");
-                DataLine.Info speakerInfo = new DataLine.Info(SourceDataLine.class,format);
+                DataLine.Info speakerInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
                 SourceDataLine speaker = (SourceDataLine) AudioSystem.getLine(speakerInfo);
-                speaker.open(format);
+                speaker.open(audioFormat, 256000);
                 speaker.start();
+
+                /*
+                 *  https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ArrayBlockingQueue.html
+                 */
+                /*Queue<byte[]> audioPacketQueue = new ArrayBlockingQueue<>(100);
+                boolean audioQueueEmptyed = true;
+
+                System.out.println("Loading....");*/
                 while(inVoice){
-                    is = client.getInputStream();
+                    inputStream = socket.getInputStream();
                     byte[] data = new byte[1024];
-                    is.read(data);
+                    inputStream.read(data);
 
-                    ByteArrayInputStream bais = new ByteArrayInputStream(data);
-                    AudioInputStream ais = new AudioInputStream(bais,format,data.length);
-                    int bytesRead = 0;
-                    if((bytesRead = ais.read(data)) != -1){
-                        System.out.println("Writing to audio output.");
-                        speaker.write(data,0,bytesRead);
+                    /*if(audioQueueEmptyed) {
+                        try {
+                            audioPacketQueue.add(data);
+                        } catch (IllegalStateException fullQueueException) {
+                            audioQueueEmptyed = false;
+                            play(speaker, audioPacketQueue.poll());
+                            audioPacketQueue.add(data);
+                        }
+                    }else{
+                        //System.out.println("PLAY");
+                        if(audioPacketQueue.peek() != null) {
+                            play(speaker, audioPacketQueue.poll());
+                        }else{
+                            audioQueueEmptyed = true;
+                        }
+                    }*/
+                    play(speaker, data);
 
-                        //System.out.println(Arrays.toString(data));
-                        //                 bais.reset();
-                    }
-                    ais.close();
-                    bais.close();
 
                 }
                 speaker.drain();
@@ -68,8 +81,21 @@ public class StreamClient{
                 e.printStackTrace();
             }
         }
-    }
-    public static void main(String [] args) throws IOException{
-        new StreamClient(args[0]);
+
+        private void play(SourceDataLine speaker, byte[] data) throws IOException {
+            ByteArrayInputStream bais = new ByteArrayInputStream(data);
+            AudioInputStream ais = new AudioInputStream(bais, audioFormat, data.length);
+            int bytesRead = 0;
+            if((bytesRead = ais.read(data)) != -1){
+                //System.out.println("Bytes Read:" + bytesRead);  //1024
+                //System.out.println("Writing to audio output.");
+                speaker.write(data,0,bytesRead);
+
+                //System.out.println(Arrays.toString(data));
+                //                 bais.reset();
+            }
+            ais.close();
+            bais.close();
+        }
     }
 }
