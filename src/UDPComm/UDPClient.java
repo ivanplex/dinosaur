@@ -1,9 +1,15 @@
+package UDPComm;
+
+import TCPComm.AudioSetting;
+
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.Arrays;
 
 /**
  * Created by ivan on 20/07/2016.
@@ -29,9 +35,11 @@ public class UDPClient {
             speaker.open(format);
             speaker.start();
 
+            InetAddress addr = InetAddress.getByName("localhost");
+
             while (true) {
                 byte[] data = new byte[1024];
-                packet = new DatagramPacket(data, data.length);
+                packet = new DatagramPacket(data, data.length, addr, 3000);
                 socket.receive(packet);
 
                 ByteArrayInputStream bais = new ByteArrayInputStream(data);
@@ -41,7 +49,7 @@ public class UDPClient {
                     System.out.println("Writing to audio output.");
                     speaker.write(data,0,bytesRead);
 
-                    //System.out.println(Arrays.toString(data));
+                    System.out.println(Arrays.toString(data));
                     //                 bais.reset();
                 }
                 ais.close();

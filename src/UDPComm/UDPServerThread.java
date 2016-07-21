@@ -1,3 +1,7 @@
+package UDPComm;
+
+import TCPComm.AudioSetting;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -39,7 +43,7 @@ public class UDPServerThread extends Thread{
                 int count = mic.read(tmpBuff,0,tmpBuff.length);
                 if (count > 0){
                     System.out.println(threadId+": Writing buffer to server.");
-                    InetAddress addr = InetAddress.getByName("192.168.8.240");
+                    InetAddress addr = InetAddress.getByName("localhost");
                     packet = new DatagramPacket(tmpBuff, 0, tmpBuff.length, addr, 3000);
                     socket.send(packet);
                     //System.out.println(Arrays.toString(tmpBuff));
