@@ -1,5 +1,7 @@
 package TCPComm;
 
+import Discovery.DiscoveryBroadcastThread;
+
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
@@ -30,6 +32,8 @@ public class StreamServer {
     }
     public StreamServer() throws IOException{
 
+        new DiscoveryBroadcastThread().start();
+
         Socket socket = null;
 
         try{
@@ -49,6 +53,7 @@ public class StreamServer {
         }catch(Exception e){
             e.printStackTrace();
         }
+
     }
 
     public class OutgoingSoudnListener extends Thread {

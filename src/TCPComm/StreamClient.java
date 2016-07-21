@@ -1,5 +1,7 @@
 package TCPComm;
 
+import Discovery.DiscoveryClient;
+
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -8,15 +10,20 @@ import java.net.Socket;
 
 public class StreamClient{
 
+    DiscoveryClient discoveryClient;
+
     AudioFormat audioFormat = getAudioFormat();
     InputStream inputStream;
     Socket socket;
-    String serverName;
+    String serverAddress;
     int port=3000;
     boolean inVoice = true;
 
-    public StreamClient(String serverName) throws IOException{
-        this.serverName = serverName;
+    public StreamClient(){
+        discoveryClient = new DiscoveryClient();
+        serverAddress = discoveryClient.findServer().getHostAddress();
+
+        new IncomingSoundListener().runListener();
     }
 
     private AudioFormat getAudioFormat(){
@@ -32,8 +39,8 @@ public class StreamClient{
     class IncomingSoundListener {
         public void runListener(){
             try{
-                System.out.println("Connecting to server:"+serverName+" Port:"+port);
-                socket = new Socket(serverName,port);
+                System.out.println("Connecting to server:"+serverAddress+" Port:"+port);
+                socket = new Socket(serverAddress,port);
                 System.out.println("Connected to: "+socket.getRemoteSocketAddress());
 
                 System.out.println("Listening for incoming audio.");
@@ -97,5 +104,9 @@ public class StreamClient{
             ais.close();
             bais.close();
         }
+    }
+
+    public static void main(String [] args) throws IOException{
+        new StreamClient();
     }
 }
