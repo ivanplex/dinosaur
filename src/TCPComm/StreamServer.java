@@ -85,8 +85,6 @@ public class StreamServer {
                     }
                 }
 
-
-
                 mic.drain();
                 mic.close();
                 System.out.println("Stopped listening from mic.");

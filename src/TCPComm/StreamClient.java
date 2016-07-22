@@ -1,12 +1,16 @@
 package TCPComm;
 
 import Discovery.DiscoveryClient;
+import Discovery.NoServerFoundException;
+import Discovery.ServerIdentification;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.List;
 
 public class StreamClient{
 
@@ -20,10 +24,35 @@ public class StreamClient{
     boolean inVoice = true;
 
     public StreamClient(){
-        discoveryClient = new DiscoveryClient();
-        serverAddress = discoveryClient.findServer().getHostAddress();
+        try {
+            connectServer("PI");
+        } catch (NoServerFoundException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
 
         new IncomingSoundListener().runListener();
+    }
+
+    private void connectServer(String serverName) throws NoServerFoundException {
+        discoveryClient = new DiscoveryClient();
+        List<ServerIdentification> serversList = discoveryClient.findServers();
+
+        /*
+         * Loop through list and find server
+         * Connect the first server with matching a machine name
+         */
+        ServerIdentification id;
+        Iterator<ServerIdentification> serverIterator = serversList.iterator();
+        while (serverIterator.hasNext()){
+            id = serverIterator.next();
+            if(id.getServerName().equals(serverName)){
+                serverAddress = id.getServerAddress().getHostAddress();
+                return;
+            }
+        }
+        throw new NoServerFoundException();
     }
 
     private AudioFormat getAudioFormat(){
