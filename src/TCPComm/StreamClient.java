@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class StreamClient{
 
@@ -81,17 +83,17 @@ public class StreamClient{
                 /*
                  *  https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ArrayBlockingQueue.html
                  */
-                /*Queue<byte[]> audioPacketQueue = new ArrayBlockingQueue<>(100);
+                Queue<byte[]> audioPacketQueue = new ArrayBlockingQueue<>(100);
                 boolean audioQueueEmptyed = true;
 
-                System.out.println("Loading....");*/
+                System.out.println("Loading....");
                 while(inVoice){
                     inputStream = socket.getInputStream();
                     byte[] data = new byte[1024];
                     //System.out.println(inputStream.available());
                     inputStream.read(data);
 
-                    /*if(audioQueueEmptyed) {
+                    if(audioQueueEmptyed) {
                         try {
                             audioPacketQueue.add(data);
                         } catch (IllegalStateException fullQueueException) {
@@ -106,8 +108,8 @@ public class StreamClient{
                         }else{
                             audioQueueEmptyed = true;
                         }
-                    }*/
-                    play(speaker, data);
+                    }
+                    //play(speaker, data);
 
 
                 }
