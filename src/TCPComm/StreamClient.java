@@ -87,7 +87,7 @@ public class StreamClient{
                 System.out.println("Loading....");*/
                 while(inVoice){
                     inputStream = socket.getInputStream();
-                    byte[] data = new byte[65536];
+                    byte[] data = new byte[4096];
                     //System.out.println(inputStream.available());
                     inputStream.read(data);
 

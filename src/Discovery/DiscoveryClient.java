@@ -15,6 +15,7 @@ public class DiscoveryClient {
 
     List<ServerIdentification> listOfServers;
     DatagramSocket c;
+    DatagramPacket receivePacket;
 
     /**
      * Find all service related servers under unknown network settings.
@@ -32,77 +33,29 @@ public class DiscoveryClient {
             c = new DatagramSocket();
             c.setBroadcast(true);
 
-            byte[] sendData = "DISCOVER_FUIFSERVER_REQUEST".getBytes();
-
-            //Try the 255.255.255.255 first
-            try {
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 8888);
-                c.send(sendPacket);
-                System.out.println("Network Discovery>>> Request packet sent to: 255.255.255.255 (DEFAULT)");
-            } catch (Exception e) {
-            }
-
-            // Broadcast the message over all the network interfaces
-            Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
-            while (interfaces.hasMoreElements()) {
-                NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
-
-                if (networkInterface.isLoopback() || !networkInterface.isUp()) {
-                    continue; // Don't want to broadcast to the loopback interface
-                }
-
-                for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
-                    InetAddress broadcast = interfaceAddress.getBroadcast();
-                    if (broadcast == null) {
-                        continue;
-                    }
-
-                    // Send the broadcast package!
-                    try {
-                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8888);
-                        c.send(sendPacket);
-                    } catch (Exception e) {
-                    }
-
-                    System.out.println("Network Discovery>>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
-                }
-            }
+            sendRequest();
 
             System.out.println("Network Discovery>>> Done looping over all network interfaces. Now waiting for a reply!");
 
             //Wait for a response
+            c.setSoTimeout(10000);
             byte[] recvBuf = new byte[15000];
-            DatagramPacket receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
-            c.receive(receivePacket);
+            receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
 
-            //We have a response
-            System.out.println("Network Discovery>>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
-
-            byte[] receivedData = receivePacket.getData();
-            ByteArrayInputStream in = new ByteArrayInputStream(receivedData);
-            ObjectInputStream is = new ObjectInputStream(in);
-            try {
-                Object receivedObject = is.readObject();
-                if(receivedObject instanceof ServerIdentification){
-                    System.out.println("Network Discovery>>>Server Name: "+((ServerIdentification) receivedObject).getServerName());
-                    System.out.println("Network Discovery>>>Server Description: "+((ServerIdentification) receivedObject).getDescription());
-                    System.out.println("Network Discovery>>>Server IP: "+((ServerIdentification) receivedObject).getServerAddress());
-                    System.out.println("Network Discovery>>>Server Port: "+((ServerIdentification) receivedObject).getPort());
-
-                    listOfServers.add((ServerIdentification) receivedObject);
+            while(true) {
+                try {
+                    c.receive(receivePacket);
+                    break;
+                } catch (SocketTimeoutException e) {
+                    System.out.println("Network Discovery>>> NO SERVER FOUND. Resending discovery message.");
+                    // resend
+                    sendRequest();
+                    continue;
                 }
-            } catch (ClassNotFoundException e) {
-                //Ignore non-class and unrelated objects
             }
 
-            //Check if the message is correct
-            /*String message = new String(receivePacket.getData()).trim();
-            if (message.equals("DISCOVER_FUIFSERVER_RESPONSE")) {
-                //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
-                //Controller_Base.setServerIp(receivePacket.getAddress());
+            respond();
 
-                return receivePacket.getAddress();
-            }*/
 
             //Close the port!
             c.close();
@@ -111,5 +64,69 @@ public class DiscoveryClient {
         }
 
         return listOfServers;
+    }
+
+    private void sendRequest() throws SocketException {
+        byte[] sendData = "DISCOVER_FUIFSERVER_REQUEST".getBytes();
+
+        //Try the 255.255.255.255 first
+
+        try {
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, InetAddress.getByName("255.255.255.255"), 8888);
+            c.send(sendPacket);
+            System.out.println("Network Discovery>>> Request packet sent to: 255.255.255.255 (DEFAULT)");
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+
+
+        // Broadcast the message over all the network interfaces
+        Enumeration interfaces = NetworkInterface.getNetworkInterfaces();
+        while (interfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = (NetworkInterface) interfaces.nextElement();
+
+            if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+                continue; // Don't want to broadcast to the loopback interface
+            }
+
+            for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
+                InetAddress broadcast = interfaceAddress.getBroadcast();
+                if (broadcast == null) {
+                    continue;
+                }
+
+                // Send the broadcast package!
+                try {
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, broadcast, 8888);
+                    c.send(sendPacket);
+                } catch (IOException e){
+                    System.err.println(e.getMessage());
+                }
+
+                System.out.println("Network Discovery>>> Request packet sent to: " + broadcast.getHostAddress() + "; Interface: " + networkInterface.getDisplayName());
+            }
+        }
+    }
+
+    private void respond() throws IOException {
+        //We have a response
+        System.out.println("Network Discovery>>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
+
+        byte[] receivedData = receivePacket.getData();
+        ByteArrayInputStream in = new ByteArrayInputStream(receivedData);
+        ObjectInputStream is = new ObjectInputStream(in);
+        try {
+            Object receivedObject = is.readObject();
+            if(receivedObject instanceof ServerIdentification){
+                System.out.println("Network Discovery>>>Server Name: "+((ServerIdentification) receivedObject).getServerName());
+                System.out.println("Network Discovery>>>Server Description: "+((ServerIdentification) receivedObject).getDescription());
+                System.out.println("Network Discovery>>>Server IP: "+((ServerIdentification) receivedObject).getServerAddress());
+                System.out.println("Network Discovery>>>Server Port: "+((ServerIdentification) receivedObject).getPort());
+
+                listOfServers.add((ServerIdentification) receivedObject);
+            }
+        } catch (ClassNotFoundException e) {
+            //Ignore non-class and unrelated objects
+        }
     }
 }
