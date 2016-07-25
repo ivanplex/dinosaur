@@ -7,6 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" afterPath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" />
     </list>
     <ignored path="dinosaur.iws" />
@@ -45,8 +46,8 @@
       <file leaf-file-name="StreamClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TCPComm/StreamClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46112117">
-              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.64737797">
+              <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -805,12 +806,12 @@
       <workItem from="1468936574781" duration="1491000" />
       <workItem from="1469010967726" duration="24978000" />
       <workItem from="1469289277345" duration="3469000" />
-      <workItem from="1469456157255" duration="454000" />
+      <workItem from="1469456157255" duration="705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59172000" />
+    <option name="totallyTimeSpent" value="59423000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
@@ -1094,8 +1095,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TCPComm/StreamClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46112117">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.64737797">
+          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
