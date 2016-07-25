@@ -5,9 +5,9 @@ import Discovery.NoServerFoundException;
 import Discovery.ServerIdentification;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Socket;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +17,7 @@ public class StreamClient{
     DiscoveryClient discoveryClient;
 
     AudioFormat audioFormat = getAudioFormat();
-    InputStream inputStream;
+    BufferedInputStream inputStream;
     Socket socket;
     String serverAddress;
     int port=3000;
@@ -86,8 +86,9 @@ public class StreamClient{
 
                 System.out.println("Loading....");*/
                 while(inVoice){
-                    inputStream = socket.getInputStream();
+                    inputStream = new BufferedInputStream(socket.getInputStream(), 65536);
                     byte[] data = new byte[1024];
+                    System.out.println(inputStream.available());
                     inputStream.read(data);
 
                     /*if(audioQueueEmptyed) {
