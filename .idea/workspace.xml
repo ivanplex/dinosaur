@@ -6,11 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Discovery/DiscoveryClient.java" afterPath="$PROJECT_DIR$/src/Discovery/DiscoveryClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" afterPath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" />
-    </list>
+    <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="" />
     <ignored path="dinosaur.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -807,12 +803,12 @@
       <workItem from="1468936574781" duration="1491000" />
       <workItem from="1469010967726" duration="24978000" />
       <workItem from="1469289277345" duration="3469000" />
-      <workItem from="1469456157255" duration="4588000" />
+      <workItem from="1469456157255" duration="4706000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63306000" />
+    <option name="totallyTimeSpent" value="63424000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
