@@ -4,7 +4,9 @@ tests/
 *.bin
 *.class
 
-
+sample_audio_16bit_44100Hz.wav
+sample_audio_16bit_16000Hz.wav
+sample_audio.mp3
 
 
 
