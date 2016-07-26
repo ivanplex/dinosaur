@@ -54,6 +54,10 @@ public class DiscoveryClient {
                 }
             }
 
+
+            /*
+             * Respond to server's reply when a server identification is received
+             */
             respond();
 
 
