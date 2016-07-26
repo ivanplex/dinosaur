@@ -14,7 +14,7 @@ public class AudioSetting {
     private boolean bigEndian;
 
     public AudioSetting(){
-        this.sampleRate = 16000.0F;
+        this.sampleRate = 44100.0F;
         this.sampleSizeBits = 16;
         this.channels = 1;
         this.signed = true;

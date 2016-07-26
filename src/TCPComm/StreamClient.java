@@ -56,7 +56,7 @@ public class StreamClient{
     }
 
     private AudioFormat getAudioFormat(){
-        float sampleRate = 16000.0F;
+        float sampleRate = 44100.0F;
         int sampleSizeBits = 16;
         int channels = 1;
         boolean signed = true;
