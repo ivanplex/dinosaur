@@ -89,7 +89,7 @@ public class StreamServer {
                 mic.close();*/
 
                 AudioInputStream audioInputStream=null;
-                audioInputStream = AudioSystem.getAudioInputStream(new File("/Users/ivan/Developers/dinosaur/sample_audio_16bit_44100Hz.wav"));
+                audioInputStream = AudioSystem.getAudioInputStream(new File("sample_audio_16bit_44100Hz.wav"));
                 while(outVoice) {
                     byte[] data = new byte[4096];
                     audioInputStream.read(data);
