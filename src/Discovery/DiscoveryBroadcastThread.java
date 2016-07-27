@@ -37,6 +37,8 @@ public class DiscoveryBroadcastThread extends Thread {
             socket = new DatagramSocket(8888, InetAddress.getByName("0.0.0.0"));
             socket.setBroadcast(true);
 
+
+
             while (true) {
                 System.out.println(getClass().getName() + ">>>Ready to receive broadcast packets!");
 
@@ -62,7 +64,7 @@ public class DiscoveryBroadcastThread extends Thread {
                 }
             }
         } catch (IOException ex) {
-
+            ex.printStackTrace();
         }
     }
 }

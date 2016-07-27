@@ -2,9 +2,7 @@ package TCPComm;
 
 import Discovery.DiscoveryBroadcastThread;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.*;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +28,7 @@ public class StreamServer {
 
         return new AudioFormat(sampleRate, sampleSizeBits, channels, signed, bigEndian);
     }
+
     public StreamServer() throws IOException{
 
         new DiscoveryBroadcastThread().start();
@@ -64,17 +63,21 @@ public class StreamServer {
             this.socket = clientSocket;
         }
 
+        private void initMic() throws LineUnavailableException {
+            DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
+            TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
+            mic.open(format);
+            System.out.println("Mic open.");
+            byte tmpBuff[] = new byte[mic.getBufferSize()/5];
+            mic.start();
+        }
+
         public void run(){
             try {
                 long threadId = Thread.currentThread().getId();
                 System.out.println("Listening from mic.");
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                /*DataLine.Info micInfo = new DataLine.Info(TargetDataLine.class,format);
-                TargetDataLine mic = (TargetDataLine) AudioSystem.getLine(micInfo);
-                mic.open(format);
-                System.out.println("Mic open.");
-                byte tmpBuff[] = new byte[mic.getBufferSize()/5];
-                mic.start();
+                /*initMic();
                 while(outVoice) {
                     System.out.println("Reading from mic.");
                     int count = mic.read(tmpBuff,0,tmpBuff.length);

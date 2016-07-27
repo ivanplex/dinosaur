@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public class StreamClient{
                 while(inVoice){
                     inputStream = socket.getInputStream();
                     byte[] data = new byte[4096];
-                    //System.out.println(inputStream.available());
+                    System.out.println(Arrays.toString(data));
                     inputStream.read(data);
 
                     /*if(audioQueueEmptyed) {
