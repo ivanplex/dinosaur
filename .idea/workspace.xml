@@ -8,11 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91aa80b9-7c3c-4107-8548-7c3ae99a8dce" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/StreamServer.jar" afterPath="$PROJECT_DIR$/out/artifacts/StreamServer.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Discovery/DiscoveryBroadcastThread.java" afterPath="$PROJECT_DIR$/src/Discovery/DiscoveryBroadcastThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" afterPath="$PROJECT_DIR$/src/TCPComm/StreamClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/TCPComm/StreamServer.java" afterPath="$PROJECT_DIR$/src/TCPComm/StreamServer.java" />
     </list>
     <ignored path="dinosaur.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,8 +49,8 @@
       <file leaf-file-name="StreamClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TCPComm/StreamClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37974682">
-              <caret line="88" column="31" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.48824593">
+              <caret line="92" column="62" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -809,12 +806,12 @@
       <workItem from="1469456157255" duration="6900000" />
       <workItem from="1469533306570" duration="8484000" />
       <workItem from="1469546140454" duration="1955000" />
-      <workItem from="1469629990347" duration="2147000" />
+      <workItem from="1469629990347" duration="2812000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78204000" />
+    <option name="totallyTimeSpent" value="78869000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
@@ -1194,8 +1191,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TCPComm/StreamClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37974682">
-          <caret line="88" column="31" selection-start-line="88" selection-start-column="31" selection-end-line="88" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.48824593">
+          <caret line="92" column="62" selection-start-line="92" selection-start-column="62" selection-end-line="92" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

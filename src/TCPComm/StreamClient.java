@@ -89,8 +89,8 @@ public class StreamClient{
                 while(inVoice){
                     inputStream = socket.getInputStream();
                     byte[] data = new byte[4096];
-                    System.out.println(Arrays.toString(data));
                     inputStream.read(data);
+                    System.out.println(Arrays.toString(data));
 
                     /*if(audioQueueEmptyed) {
                         try {
