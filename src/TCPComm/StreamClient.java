@@ -56,7 +56,7 @@ public class StreamClient{
                 System.out.println("Listening for incoming audio.");
                 DataLine.Info speakerInfo = new DataLine.Info(SourceDataLine.class, audioFormat);
                 SourceDataLine speaker = (SourceDataLine) AudioSystem.getLine(speakerInfo);
-                speaker.open(audioFormat, 256000);
+                speaker.open(audioFormat);
                 speaker.start();
 
                 /*

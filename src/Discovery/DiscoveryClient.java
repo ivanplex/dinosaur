@@ -44,7 +44,6 @@ public class DiscoveryClient {
 
             while(true) {
                 try {
-
                     /*
                      * Search for servers for 10 seconds until SocketTimeoutException calls.
                      */
@@ -61,7 +60,6 @@ public class DiscoveryClient {
 
                 }
 
-
                 //If server(s) found, break loop
                 if(!listOfServers.isEmpty()){
                     break;
@@ -73,10 +71,6 @@ public class DiscoveryClient {
                 }
 
             }
-
-
-
-
 
             //Close the port!
             c.close();
