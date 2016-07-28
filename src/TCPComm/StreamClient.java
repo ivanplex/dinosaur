@@ -2,16 +2,12 @@ package TCPComm;
 
 import Discovery.DiscoveryClient;
 import Discovery.NoServerFoundException;
-import Discovery.ServerIdentification;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 public class StreamClient{
 
@@ -25,8 +21,10 @@ public class StreamClient{
     boolean inVoice = true;
 
     public StreamClient(){
+        discoveryClient = new DiscoveryClient();
+
         try {
-            connectServer("PI");
+            serverAddress = discoveryClient.connectServer("PI", discoveryClient.findServers());
         } catch (NoServerFoundException e) {
             e.printStackTrace();
             System.exit(0);
@@ -36,25 +34,7 @@ public class StreamClient{
         new IncomingSoundListener().runListener();
     }
 
-    private void connectServer(String serverName) throws NoServerFoundException {
-        discoveryClient = new DiscoveryClient();
-        List<ServerIdentification> serversList = discoveryClient.findServers();
 
-        /*
-         * Loop through list and find server
-         * Connect the first server with matching a machine name
-         */
-        ServerIdentification id;
-        Iterator<ServerIdentification> serverIterator = serversList.iterator();
-        while (serverIterator.hasNext()){
-            id = serverIterator.next();
-            if(id.getServerName().equals(serverName)){
-                serverAddress = id.getServerAddress().getHostAddress();
-                return;
-            }
-        }
-        throw new NoServerFoundException();
-    }
 
     private AudioFormat getAudioFormat(){
         float sampleRate = 44100.0F;
@@ -90,7 +70,7 @@ public class StreamClient{
                     inputStream = socket.getInputStream();
                     byte[] data = new byte[4096];
                     inputStream.read(data);
-                    System.out.println(Arrays.toString(data));
+                    //System.out.println(Arrays.toString(data));
 
                     /*if(audioQueueEmptyed) {
                         try {

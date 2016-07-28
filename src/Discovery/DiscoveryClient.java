@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -39,26 +40,42 @@ public class DiscoveryClient {
 
             //Wait for a response
             c.setSoTimeout(10000);
-            byte[] recvBuf = new byte[15000];
-            receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+
 
             while(true) {
                 try {
-                    c.receive(receivePacket);
-                    break;
+
+                    /*
+                     * Search for servers for 10 seconds until SocketTimeoutException calls.
+                     */
+                    boolean loop = true;
+                    while (loop) {
+                        byte[] recvBuf = new byte[15000];
+                        receivePacket = new DatagramPacket(recvBuf, recvBuf.length);
+
+                        c.receive(receivePacket);
+                        checkServerReply();     //Check if receivePacket is genuine and from our service server
+                    }
+
                 } catch (SocketTimeoutException e) {
+
+                }
+
+
+                //If server(s) found, break loop
+                if(!listOfServers.isEmpty()){
+                    break;
+                }else{
                     System.out.println("Network Discovery>>> NO SERVER FOUND. Resending discovery message.");
                     // resend
                     sendRequest();
                     continue;
                 }
+
             }
 
 
-            /*
-             * Respond to server's reply when a server identification is received
-             */
-            respond();
+
 
 
             //Close the port!
@@ -112,7 +129,7 @@ public class DiscoveryClient {
         }
     }
 
-    private void respond() throws IOException {
+    private void checkServerReply() throws IOException {
         //We have a response
         System.out.println("Network Discovery>>> Broadcast response from server: " + receivePacket.getAddress().getHostAddress());
 
@@ -132,5 +149,29 @@ public class DiscoveryClient {
         } catch (ClassNotFoundException e) {
             //Ignore non-class and unrelated objects
         }
+    }
+
+    /**
+     * Connect to server with a given name
+     * @param serverName    Name of server
+     * @param serversList   List of server with it's Server Identification
+     * @return  IP Address of server
+     * @throws NoServerFoundException  If no server with the provided name, throw no server found exception
+     */
+    public String connectServer(String serverName, List<ServerIdentification> serversList) throws NoServerFoundException {
+
+        /*
+         * Loop through list and find server
+         * Connect the first server with matching a machine name
+         */
+        ServerIdentification id;
+        Iterator<ServerIdentification> serverIterator = serversList.iterator();
+        while (serverIterator.hasNext()){
+            id = serverIterator.next();
+            if(id.getServerName().equals(serverName)){
+                return id.getServerAddress().getHostAddress();
+            }
+        }
+        throw new NoServerFoundException();
     }
 }
