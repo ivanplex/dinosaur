@@ -1,0 +1,34 @@
+\title{Real-time One to Many Synchronized Wireless Multimedia Entertainment System}
+
+\documentclass[12pt]{article}
+
+\date{}
+\pagenumbering{gobble}
+
+\begin{document}
+\begin{minipage}[t][0pt]{\linewidth}
+
+\section*{\underline{Part III Personal Project Brief}}
+
+\section*{Real-time One to Many Synchronized Wireless Multimedia Entertainment System}
+
+ 
+
+\textbf{Man-Leong Chan (mlc1g14@soton.ac.uk)}
+
+\textbf{Supervisor: Denis Nicole (dan@ecs.soton.ac.uk)}
+
+\paragraph{}
+This project involves building a real-time synchronized wireless audio system with at lease 3 speakers each connected to a single-board computer(SBC) under a local WiFi network. The SBC will listen to an audio source in the network and try to output the audio in real-time while staying synchronized with the other SBCs. To achieve real-time synchronized audio delivery, the software faces the following challenges. 
+
+\begin{itemize}
+\item
+This project will investigate techniques to achieve real-time high quality audio delivery over WiFi. While TCP has clear advantage on delivering high quality audio, this project will instead try to preserve the same audio quality under UDP. This allows us to implement routing schemes such as Reliable Multicast(RM). RM provides much better scalability and utilizes the bandwidth more efficiently compared to Broadcast or Unicast. 
+
+\item
+A synchronized audio system challenges all speakers to minimize their apparent latency to a level less than the human’s ability to discern interaural time difference. This would require an efficient clock synchronization algorithm running across all SBCs. This project will aim to experiment different ways of synchronizing speakers over UDP protocol.  
+
+\end{itemize}
+
+\end{minipage}
+\end{document}

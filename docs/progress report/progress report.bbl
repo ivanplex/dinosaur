@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+
+\bibitem{Peercasting:1}
+J.~Buford, H.~Yu, and E.~K. Lua, {\em {P2P Networking and Applications (Morgan
+  Kaufmann Series in Networking (Hardcover))}}.
+\newblock Morgan Kaufmann, 2009.
+
+\bibitem{RMP}
+O.~Ozkasap, Z.~Xiao, and K.~P. Birman, {\em {Scalability of Two Reliable
+  Multicast Protocols}}.
+
+\bibitem{RM:1}
+S.~Floyd, V.~Jacobson, C.-G. Liu, S.~McCanne, and L.~Zhang, {\em {A reliable
+  multicast framework for light-weight sessions and application level
+  framing.}}, vol.~5.
+\newblock 1997.
+
+\bibitem{RM:2}
+C.~Maih{\"o}fer, ``{Bandwidth Analysis and Simulation of Reliable Multicast
+  Transport Protocols.},'' {\em Telecommunication Systems}, vol.~23, no.~1-2,
+  pp.~201--237, 2003.
+
+\bibitem{Exponential_Backoff:1}
+L.~L.~P. {Bruce S. Davie}, {\em {Computer Networks: A Systems Approach (The
+  Morgan Kaufmann Series in Networking)}}.
+\newblock Morgan Kaufmann Publishers, 2003.
+
+\bibitem{Wifi:1}
+wi~fi.org, {\em {Wi-Fi CERTIFIED n: Longer-Range, Faster-Throughput,
+  Multimedia-Grade Wi-Fi® Networks}}.
+\newblock 2009.
+
+\end{thebibliography}

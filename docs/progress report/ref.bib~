@@ -1,0 +1,46 @@
+
+
+@book{RMP,
+	author = "Ozkasap, Oznur and Xiao, Zhen and Birman, Kenneth P.",
+	institution = "Cornell University, Ithaca, New York",
+	title = "{Scalability of Two Reliable Multicast Protocols}"
+}
+
+@book{Peercasting:1,
+	author = "Buford, John and Yu, Heather and Lua, Eng Keong",
+	publisher = "Morgan Kaufmann",
+	title = "{P2P Networking and Applications (Morgan Kaufmann Series in Networking (Hardcover))}",
+	url = "https://www.amazon.com/Networking-Applications-Morgan-Kaufmann-Hardcover-ebook/dp/B003FJ649Y%3FSubscriptionId%3D0JYN1NVW651KCA56C102%26tag%3Dtechkie-20%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3DB003FJ649Y",
+	year = "2009"
+}
+
+
+
+@book{RM:1,
+	author = "Floyd, Sally and Jacobson, Van and Liu, Ching-Gung and McCanne, Steven and Zhang, Lixia",
+	interhash = "1491d04d13d62be602fa14dacea7f926",
+	intrahash = "31d26ce0a09bff5d7eb7c7dd361fc071",
+	journal = "IEEE/ACM Trans. Netw.",
+	pages = "784--803",
+	title = "{A reliable multicast framework for light-weight sessions and application level framing.}",
+	url = "http://dblp.uni-trier.de/db/journals/ton/ton5.html#FloydJLMZ97; http://dx.doi.org/10.1109/90.650139",
+	volume = 5,
+	x-fetchedfrom = "Bibsonomy",
+	year = 1997
+}
+
+@book{Exponential_Backoff:1,
+	author = "Bruce S. Davie, Larry L. Peterson",
+	publisher = "Morgan Kaufmann Publishers",
+	title = "{Computer Networks: A Systems Approach (The Morgan Kaufmann Series in Networking)}",
+	year = 2003
+}
+
+@book{Wifi:1,
+	author = "wi-fi.org",
+	title = "{Wi-Fi CERTIFIED n: Longer-Range, Faster-Throughput, Multimedia-Grade Wi-Fi® Networks}",
+	url = "http://www.wi-fi.org/register.php?file=wp_Wi-Fi_CERTIFIED_n_Industry.pdf",
+	urldate = "2009-09-30",
+	year = 2009
+}
+

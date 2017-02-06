@@ -1,0 +1,16 @@
+\contentsline {section}{Acknowledgements}{4}
+\contentsline {section}{\numberline {1}Introduction}{5}
+\contentsline {section}{\numberline {2}Background}{5}
+\contentsline {subsection}{\numberline {2.1}IP Multicast}{5}
+\contentsline {subsubsection}{\numberline {2.1.1}Reliable Multicast}{5}
+\contentsline {subsection}{\numberline {2.2}Audio Quality}{6}
+\contentsline {section}{\numberline {3}Implementation}{6}
+\contentsline {subsection}{\numberline {3.1}Hardware}{6}
+\contentsline {subsubsection}{\numberline {3.1.1}Audio}{6}
+\contentsline {subsection}{\numberline {3.2}Adaptation to the SRM}{7}
+\contentsline {subsection}{\numberline {3.3}Client Recovery}{7}
+\contentsline {section}{\numberline {4}Remaining Work}{8}
+\contentsline {subsection}{\numberline {4.1}SRM delay}{8}
+\contentsline {subsection}{\numberline {4.2}Synchronization}{8}
+\contentsline {section}{\numberline {5}Conclusion}{8}
+\contentsline {section}{\numberline {6}Timeline}{9}

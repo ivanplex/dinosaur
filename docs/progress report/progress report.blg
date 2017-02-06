@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: progress report.aux
+The style file: ieeetr.bst
+Database file #1: ref.bib
+Warning--empty publisher in RMP
+Warning--empty year in RMP
+Warning--empty publisher in RM:1
+Warning--empty publisher in Wifi:1
+You've used 6 entries,
+            1876 wiz_defined-function locations,
+            513 strings with 4463 characters,
+and the built_in function-call counts, 1178 in all, are:
+= -- 105
+> -- 51
+< -- 0
++ -- 20
+- -- 14
+* -- 75
+:= -- 176
+add.period$ -- 10
+call.type$ -- 6
+change.case$ -- 1
+chr.to.int$ -- 0
+cite$ -- 10
+duplicate$ -- 61
+empty$ -- 128
+format.name$ -- 14
+if$ -- 284
+int.to.chr$ -- 0
+int.to.str$ -- 6
+missing$ -- 11
+newline$ -- 25
+num.names$ -- 6
+pop$ -- 34
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 20
+stack$ -- 0
+substring$ -- 32
+swap$ -- 14
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 4
+while$ -- 9
+width$ -- 7
+write$ -- 54
+(There were 4 warnings)
