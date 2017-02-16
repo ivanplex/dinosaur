@@ -48,7 +48,8 @@ import sys
 import pyaudio
 import wave
 
-FORMAT = pyaudio.paInt16
+#FORMAT = pyaudio.paInt16
+FORMAT = 8
 CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
@@ -57,10 +58,22 @@ WAVE_OUTPUT_FILENAME = "file.wav"
  
 audio = pyaudio.PyAudio()
 
+############
+wf = wave.open('kygo.wav', 'rb')
+print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
+print("Channel: "+ str(wf.getnchannels()))
+print("Frame: "+ str(wf.getframerate()))
+
+stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True)
+############
+
 # start Recording
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-                rate=RATE, input=True,
-                frames_per_buffer=CHUNK)
+#stream = audio.open(format=FORMAT, channels=CHANNELS,
+#                rate=RATE, input=True,
+#                frames_per_buffer=CHUNK)
 
 print("recording...")
 #####
@@ -72,10 +85,15 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
-    while True:
+    streamdata = wf.readframes(CHUNK)
+    while len(streamdata) >0:
+        sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
+        streamdata = wf.readframes(CHUNK)
+    #while True:
         #t = stream.read(CHUNK)
         #print(len(t))
-        sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
+        
+        #sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
     # Look for responses from all recipients
     #while True:
     #    print('waiting to receive')

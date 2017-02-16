@@ -30,19 +30,27 @@ while True:
         sock.sendto('ack', address)
 '''
 
+
 import socket
 import struct
 import sys
 
+from threading import Thread
+import copy
+
 #####
 import pyaudio
 import wave
+import time
 
-FORMAT = pyaudio.paInt16
+
+
+#FORMAT = pyaudio.paInt16
+FORMAT = 8
 CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
-RECORD_SECONDS = 5
+RECORD_SECONDS = 300
 WAVE_OUTPUT_FILENAME = "file.wav"
  
 audio = pyaudio.PyAudio()
@@ -80,21 +88,35 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 #data, address = sock.recvfrom(4096)
 #print(len(data))
 
+
+def playAudio(self):
+    global frames
+    while True:
+        #print(len(frames))
+        if(len(frames)%400) == 0:
+            buffer_list = copy.copy(frames)
+            frames = []
+            streamData = b''.join(buffer_list)
+            for i in range(0, len(streamData), CHUNK):
+                # writing to the stream is what *actually* plays the sound.
+                stream.write(streamData[i:i+CHUNK])
+
+
+thread1 = Thread( target=playAudio, args=("Thread-1", ) )
+thread1.start()
+
+#while True:
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
     data, address = sock.recvfrom(4096)
     #stream.write(data)
     frames.append(data)
-    print(len(frames))
-print("finished recording")
+    #print(len(frames))
+    #print(i)
+    #if (i%100) == 0:
+    #    streamData = b''.join(frames)
+    #    for i in range(0, len(streamData), CHUNK):
+    #        # writing to the stream is what *actually* plays the sound.
+    #        stream.write(streamData[i:i+CHUNK])
+    #    frames = []
 
-streamData = b''.join(frames)
-for i in range(0, len(streamData), CHUNK):
-    # writing to the stream is what *actually* plays the sound.
-    stream.write(streamData[i:i+CHUNK])
 
-#waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-#waveFile.setnchannels(CHANNELS)
-#waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-#waveFile.setframerate(RATE)
-#waveFile.writeframes(b''.join(frames))
-#waveFile.close()
