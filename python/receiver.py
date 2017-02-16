@@ -34,6 +34,27 @@ import socket
 import struct
 import sys
 
+#####
+import pyaudio
+import wave
+
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+CHUNK = 1024
+RECORD_SECONDS = 5
+WAVE_OUTPUT_FILENAME = "file.wav"
+ 
+audio = pyaudio.PyAudio()
+
+stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True)
+
+frames = []
+#####
+
 MCAST_GRP = '224.1.1.1'
 MCAST_PORT = 5007
 
@@ -45,12 +66,25 @@ mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
 
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
-while True:
-	data, address = sock.recvfrom(1024)
+#while True:
+#	data, address = sock.recvfrom(1024)
                 
-	print('received %s bytes from %s' % (len(data), address))
-	print(data.decode())
+#	print('received %s bytes from %s' % (len(data), address))
+#	print(data.decode())
 
 	#NAK
 	#print >>sys.stderr, 'sending negative acknowledgement to', address
 	#sock.sendto('ack', address)
+
+
+for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+    data, address = sock.recvfrom(1024)
+    frames.append(data)
+print("finished recording")
+
+waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+waveFile.setnchannels(CHANNELS)
+waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+waveFile.setframerate(RATE)
+waveFile.writeframes(b''.join(frames))
+waveFile.close()

@@ -44,6 +44,27 @@ import socket
 import time
 import sys
 
+#####
+import pyaudio
+import wave
+
+FORMAT = pyaudio.paInt16
+CHANNELS = 2
+RATE = 44100
+CHUNK = 1024
+RECORD_SECONDS = 5
+WAVE_OUTPUT_FILENAME = "file.wav"
+ 
+audio = pyaudio.PyAudio()
+
+# start Recording
+stream = audio.open(format=FORMAT, channels=CHANNELS,
+                rate=RATE, input=True,
+                frames_per_buffer=CHUNK)
+
+print("recording...")
+#####
+
 MCAST_GRP = '224.1.1.1'
 MCAST_PORT = 5007
 
@@ -51,18 +72,25 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
-    sock.sendto("robot".encode(), (MCAST_GRP, MCAST_PORT))
-    # Look for responses from all recipients
     while True:
-        print('waiting to receive')
-        try:
-            data, server = sock.recvfrom(16)
-        except socket.timeout:
-            print('timed out, no more responses')
-            break
-        else:
-            print('received "%s" from %s' % (data, server))
-    time.sleep(.2)
+        sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
+    # Look for responses from all recipients
+    #while True:
+    #    print('waiting to receive')
+    #    try:
+    #        data, server = sock.recvfrom(16)
+    #    except socket.timeout:
+    #        print('timed out, no more responses')
+    #        break
+    #    else:
+    #        print('received "%s" from %s' % (data, server))
+    #time.sleep(.2)
 finally:
     print('closing socket')
     sock.close()
+
+    ###
+    stream.stop_stream()
+    stream.close()
+    audio.terminate()
+    ###
