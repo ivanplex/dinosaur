@@ -73,6 +73,8 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
     while True:
+        #t = stream.read(CHUNK)
+        #print(len(t))
         sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
     # Look for responses from all recipients
     #while True:

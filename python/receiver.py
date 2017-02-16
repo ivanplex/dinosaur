@@ -47,10 +47,11 @@ WAVE_OUTPUT_FILENAME = "file.wav"
  
 audio = pyaudio.PyAudio()
 
-stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True)
+stream = audio.open(format=FORMAT, 
+                channels=CHANNELS,
+                rate=RATE,
+                output=True,
+                frames_per_buffer=CHUNK)
 
 frames = []
 #####
@@ -76,15 +77,24 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 	#print >>sys.stderr, 'sending negative acknowledgement to', address
 	#sock.sendto('ack', address)
 
+#data, address = sock.recvfrom(4096)
+#print(len(data))
 
 for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-    data, address = sock.recvfrom(1024)
+    data, address = sock.recvfrom(4096)
+    #stream.write(data)
     frames.append(data)
+    print(len(frames))
 print("finished recording")
 
-waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
-waveFile.setnchannels(CHANNELS)
-waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-waveFile.setframerate(RATE)
-waveFile.writeframes(b''.join(frames))
-waveFile.close()
+streamData = b''.join(frames)
+for i in range(0, len(streamData), CHUNK):
+    # writing to the stream is what *actually* plays the sound.
+    stream.write(streamData[i:i+CHUNK])
+
+#waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+#waveFile.setnchannels(CHANNELS)
+#waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+#waveFile.setframerate(RATE)
+#waveFile.writeframes(b''.join(frames))
+#waveFile.close()
