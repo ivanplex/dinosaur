@@ -37,11 +37,13 @@ import sys
 
 from threading import Thread
 import copy
+from queue import Queue
 
 #####
 import pyaudio
 import wave
 import time
+from random import randint
 
 
 
@@ -61,6 +63,7 @@ stream = audio.open(format=FORMAT,
                 output=True,
                 frames_per_buffer=CHUNK)
 
+frameQueue = Queue()
 frames = []
 #####
 
@@ -90,13 +93,13 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
 
 def playAudio(self):
-    global frames
     while True:
         #print(len(frames))
-        if(len(frames)%400) == 0:
-            buffer_list = copy.copy(frames)
-            frames = []
-            streamData = b''.join(buffer_list)
+        if frameQueue.qsize() > 0:
+            print('digested frames. size: '+ str(frameQueue.qsize()))
+            #buffer_list = copy.copy(frameQueue.get())
+            #frames = []
+            streamData = b''.join(frameQueue.get())
             for i in range(0, len(streamData), CHUNK):
                 # writing to the stream is what *actually* plays the sound.
                 stream.write(streamData[i:i+CHUNK])
@@ -105,11 +108,15 @@ def playAudio(self):
 thread1 = Thread( target=playAudio, args=("Thread-1", ) )
 thread1.start()
 
-#while True:
-for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+while True:
+#for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
     data, address = sock.recvfrom(4096)
     #stream.write(data)
     frames.append(data)
+    if(len(frames)%400) == 0:
+        frameQueue.put(frames)
+        frames = []
+    #print(sys.getsizeof(frames))
     #print(len(frames))
     #print(i)
     #if (i%100) == 0:
