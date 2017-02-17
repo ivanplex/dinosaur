@@ -54,26 +54,26 @@ CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
 RECORD_SECONDS = 5
-WAVE_OUTPUT_FILENAME = "file.wav"
  
 audio = pyaudio.PyAudio()
 
 ############
-wf = wave.open('kygo.wav', 'rb')
-print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
-print("Channel: "+ str(wf.getnchannels()))
-print("Frame: "+ str(wf.getframerate()))
+###  Streaming wav File
+#wf = wave.open('kygo.wav', 'rb')
+#print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
+#print("Channel: "+ str(wf.getnchannels()))
+#print("Frame: "+ str(wf.getframerate()))
 
-stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
-                channels=wf.getnchannels(),
-                rate=wf.getframerate(),
-                output=True)
+#stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
+#                channels=wf.getnchannels(),
+#                rate=wf.getframerate(),
+#                output=True)
 ############
 
-# start Recording
-#stream = audio.open(format=FORMAT, channels=CHANNELS,
-#                rate=RATE, input=True,
-#                frames_per_buffer=CHUNK)
+# Streaming Audio Input
+stream = audio.open(format=FORMAT, channels=CHANNELS,
+                rate=RATE, input=True,
+                frames_per_buffer=CHUNK)
 
 print("recording...")
 #####
@@ -85,26 +85,15 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
-    streamdata = wf.readframes(CHUNK)
-    while len(streamdata) >0:
-        sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
-        streamdata = wf.readframes(CHUNK)
-    #while True:
-        #t = stream.read(CHUNK)
-        #print(len(t))
-        
-        #sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
-    # Look for responses from all recipients
-    #while True:
-    #    print('waiting to receive')
-    #    try:
-    #        data, server = sock.recvfrom(16)
-    #    except socket.timeout:
-    #        print('timed out, no more responses')
-    #        break
-    #    else:
-    #        print('received "%s" from %s' % (data, server))
-    #time.sleep(.2)
+    ### Streaming
+    #streamdata = wf.readframes(CHUNK)
+    #while len(streamdata) >0:
+    #    sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
+    #    streamdata = wf.readframes(CHUNK)
+
+    ### Streaming Audio Input
+    while True:       
+        sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
 finally:
     print('closing socket')
     sock.close()

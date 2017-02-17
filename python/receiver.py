@@ -53,7 +53,6 @@ CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
 RECORD_SECONDS = 300
-WAVE_OUTPUT_FILENAME = "file.wav"
  
 audio = pyaudio.PyAudio()
 
@@ -117,13 +116,5 @@ while True:
         frameQueue.put(frames)
         frames = []
     #print(sys.getsizeof(frames))
-    #print(len(frames))
-    #print(i)
-    #if (i%100) == 0:
-    #    streamData = b''.join(frames)
-    #    for i in range(0, len(streamData), CHUNK):
-    #        # writing to the stream is what *actually* plays the sound.
-    #        stream.write(streamData[i:i+CHUNK])
-    #    frames = []
 
 
