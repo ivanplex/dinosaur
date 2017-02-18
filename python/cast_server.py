@@ -48,32 +48,31 @@ import sys
 import pyaudio
 import wave
 
-#FORMAT = pyaudio.paInt16
-FORMAT = 8
+FORMAT = pyaudio.paInt16
+#FORMAT = 8
 CHANNELS = 2
 RATE = 44100
 CHUNK = 1024
-RECORD_SECONDS = 5
  
 audio = pyaudio.PyAudio()
 
 ############
 ###  Streaming wav File
-#wf = wave.open('kygo.wav', 'rb')
-#print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
-#print("Channel: "+ str(wf.getnchannels()))
-#print("Frame: "+ str(wf.getframerate()))
+wf = wave.open('kygo.wav', 'rb')
+print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
+print("Channel: "+ str(wf.getnchannels()))
+print("Frame: "+ str(wf.getframerate()))
 
-#stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
-#                channels=wf.getnchannels(),
-#                rate=wf.getframerate(),
-#                output=True)
+stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
+               channels=wf.getnchannels(),
+               rate=wf.getframerate(),
+               output=True)
 ############
 
 # Streaming Audio Input
-stream = audio.open(format=FORMAT, channels=CHANNELS,
-                rate=RATE, input=True,
-                frames_per_buffer=CHUNK)
+# stream = audio.open(format=FORMAT, channels=CHANNELS,
+#                 rate=RATE, input=True,
+#                 frames_per_buffer=CHUNK)
 
 print("recording...")
 #####
@@ -85,15 +84,17 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
-    ### Streaming
-    #streamdata = wf.readframes(CHUNK)
-    #while len(streamdata) >0:
-    #    sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
-    #    streamdata = wf.readframes(CHUNK)
+    ### Streaming wav
+    streamdata = wf.readframes(CHUNK)
+    while len(streamdata) >0:
+       sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
+       streamdata = wf.readframes(CHUNK)
+       time.sleep(0.02)
+
 
     ### Streaming Audio Input
-    while True:       
-        sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
+    # while True:       
+    #     sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
 finally:
     print('closing socket')
     sock.close()
