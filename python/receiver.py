@@ -9,6 +9,11 @@ from queue import Queue
 ### Temp Modules
 import time
 
+#####
+from fec import FEC
+
+fec = FEC()
+
 
 FORMAT = pyaudio.paInt16
 #FORMAT = 8
@@ -39,19 +44,6 @@ mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
 
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
-#while True:
-#	data, address = sock.recvfrom(1024)
-                
-#	print('received %s bytes from %s' % (len(data), address))
-#	print(data.decode())
-
-	#NAK
-	#print >>sys.stderr, 'sending negative acknowledgement to', address
-	#sock.sendto('ack', address)
-
-#data, address = sock.recvfrom(4096)
-#print(len(data))
-
 
 def playAudio(self):
     while True:
@@ -59,16 +51,17 @@ def playAudio(self):
             print('digested frames. size: '+ str(frameQueue.qsize()))
 
             streamData = b''.join(frameQueue.get())
-            for i in range(0, len(streamData), CHUNK):
+            print(len(streamData))
+            audio_data = fec.fec_decode(streamData)
+            for i in range(0, len(audio_data), CHUNK):
                 # writing to the stream is what *actually* plays the sound.
-                stream.write(streamData[i:i+CHUNK])
+                stream.write(audio_data[i:i+CHUNK])
 
 
 audioThread = Thread( target=playAudio, args=("Audio", ) )
 audioThread.start()
 
 while True:
-#for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
     data, address = sock.recvfrom(4096)
     frames.append(data)
 
@@ -77,8 +70,5 @@ while True:
         frameQueue.put(frames)
         frames = []
 
-    ## Introduce deley to miss out packages
-    # Test only
-    #time.sleep(0.05) 
 
 

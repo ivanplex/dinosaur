@@ -7,13 +7,15 @@ import pyaudio
 import wave
 
 #####
-from fec import fec_encode
+from fec import FEC
+
+fec = FEC()
 
 FORMAT = pyaudio.paInt16
 #FORMAT = 8
 CHANNELS = 2
 RATE = 44100
-CHUNK = 1024
+CHUNK = 256
  
 audio = pyaudio.PyAudio()
 
@@ -54,7 +56,7 @@ try:
     
     while len(streamdata) >0:
 
-        encoded_bytes = fec_encode(streamdata)
+        encoded_bytes = fec.fec_encode(streamdata)
         sock.sendto(encoded_bytes, (MCAST_GRP, MCAST_PORT))
         streamdata = wf.readframes(CHUNK)
         #time.sleep(0.01)
