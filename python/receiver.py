@@ -19,7 +19,7 @@ FORMAT = pyaudio.paInt16
 #FORMAT = 8
 CHANNELS = 2
 RATE = 44100
-CHUNK = 1024
+CHUNK = 224
  
 audio = pyaudio.PyAudio()
 
@@ -29,7 +29,7 @@ stream = audio.open(format=FORMAT,
                 output=True,
                 frames_per_buffer=CHUNK)
 
-frameQueue = Queue()
+encodedFrameQueue = Queue()
 frames = []
 #####
 
@@ -47,27 +47,43 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
 def playAudio(self):
     while True:
-        if frameQueue.qsize() > 0:
-            print('digested frames. size: '+ str(frameQueue.qsize()))
+        if encodedFrameQueue.qsize() > 0:
+            print('digested frames. size: '+ str(encodedFrameQueue.qsize()))
 
-            streamData = b''.join(frameQueue.get())
-            print(len(streamData))
-            audio_data = fec.fec_decode(streamData)
-            for i in range(0, len(audio_data), CHUNK):
+            # # Frames need to be individually decoded
+            # encodedFrames = encodedFrameQueue.get()
+            # decodedFrames = []
+            # while len(encodedFrames) >0:
+            #     decodedFrames.append(fec.fec_decode(encodedFrames.pop()))
+
+            streamData = b''.join(encodedFrameQueue.get())
+
+            try:
+                for i in range(0, len(streamData), CHUNK):
+                    # writing to the stream is what *actually* plays the sound.
+                    stream.write(streamData[i:i+CHUNK])
+            except: 
+                print(">>> Broken data, ignoring...")
+                pass
+
+            streamData = b''.join(encodedFrameQueue.get())
+            for i in range(0, len(streamData), CHUNK):
                 # writing to the stream is what *actually* plays the sound.
-                stream.write(audio_data[i:i+CHUNK])
+                stream.write(streamData[i:i+CHUNK])
 
 
 audioThread = Thread( target=playAudio, args=("Audio", ) )
 audioThread.start()
 
 while True:
-    data, address = sock.recvfrom(4096)
-    frames.append(data)
+    data, address = sock.recvfrom(1024)
+
+    # Frames need to be individually decoded
+    frames.append(fec.fec_decode(data))
 
     if(len(frames)%100) == 0:
         #Put the chunk of packages into a queue
-        frameQueue.put(frames)
+        encodedFrameQueue.put(frames)
         frames = []
 
 

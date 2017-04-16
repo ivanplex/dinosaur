@@ -5,7 +5,7 @@ class FEC:
 	rs = None
 
 	def __init__(self):
-		self.rs = RSCodec(10)
+		self.rs = RSCodec(12)
 
 	def fec_encode(self, raw):
 		# Encode raw data using FEC
@@ -24,3 +24,4 @@ class FEC:
 		immutable_bytes = bytes(decoded_bytes)
 
 		return immutable_bytes
+
