@@ -1,0 +1,3 @@
+
+Simple script to record sound from the microphone, dependencies: easy_install pyaudio
+https://gist.github.com/mabdrabo/8678538
