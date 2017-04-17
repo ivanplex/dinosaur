@@ -1,36 +1,21 @@
 import socket
 import struct
 import sys
-import pyaudio
 
 from threading import Thread
 from queue import Queue
 
-### Temp Modules
-import time
+#####
+from audio.audioHandler import AudioHandler
+audioHandler = AudioHandler()
 
 #####
 from fec import FEC
-
 fec = FEC()
 
 
-FORMAT = pyaudio.paInt16
-#FORMAT = 8
-CHANNELS = 2
-RATE = 44100
-CHUNK = 224
- 
-audio = pyaudio.PyAudio()
-
-stream = audio.open(format=FORMAT, 
-                channels=CHANNELS,
-                rate=RATE,
-                output=True,
-                frames_per_buffer=CHUNK)
-
-encodedFrameQueue = Queue()
-frames = []
+frameQueue = Queue()
+frameblock = []
 #####
 
 MCAST_GRP = '224.1.1.1'
@@ -46,27 +31,24 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
 
 def playAudio(self):
+    """
+    Audio Playing thread
+    
+    Fetch a block of frames from the frameQueue and 
+    combine the entire block of frames into one single
+    bytearray frame. PyAudio then write the block of
+    audio to audio output.
+    """
+
+    stream = audioHandler.getStream()
+    CHUNK = audioHandler.getChunk()
+
     while True:
-        if encodedFrameQueue.qsize() > 0:
-            print('digested frames. size: '+ str(encodedFrameQueue.qsize()))
+        if frameQueue.qsize() > 0:
+            # For debugging frameQueue only
+            print('digested frames. size: '+ str(frameQueue.qsize()))
 
-            # # Frames need to be individually decoded
-            # encodedFrames = encodedFrameQueue.get()
-            # decodedFrames = []
-            # while len(encodedFrames) >0:
-            #     decodedFrames.append(fec.fec_decode(encodedFrames.pop()))
-
-            streamData = b''.join(encodedFrameQueue.get())
-
-            try:
-                for i in range(0, len(streamData), CHUNK):
-                    # writing to the stream is what *actually* plays the sound.
-                    stream.write(streamData[i:i+CHUNK])
-            except: 
-                print(">>> Broken data, ignoring...")
-                pass
-
-            streamData = b''.join(encodedFrameQueue.get())
+            streamData = b''.join(frameQueue.get())
             for i in range(0, len(streamData), CHUNK):
                 # writing to the stream is what *actually* plays the sound.
                 stream.write(streamData[i:i+CHUNK])
@@ -76,15 +58,19 @@ audioThread = Thread( target=playAudio, args=("Audio", ) )
 audioThread.start()
 
 while True:
-    data, address = sock.recvfrom(1024)
+    encodedFrame, address = sock.recvfrom(1024)
 
     # Frames need to be individually decoded
-    frames.append(fec.fec_decode(data))
+    try:
+        frameblock.append(fec.fec_decode(encodedFrame))
+    except: 
+        print(">>> Broken data, ignoring...")
+        pass
 
-    if(len(frames)%100) == 0:
+    if(len(frameblock)%100) == 0:
         #Put the chunk of packages into a queue
-        encodedFrameQueue.put(frames)
-        frames = []
+        frameQueue.put(frameblock)
+        frameblock = []
 
 
 

@@ -3,39 +3,18 @@ import time
 import sys
 
 #####
-import pyaudio
+from audio.audioHandler import AudioHandler
+audioHandler = AudioHandler()
 import wave
 
 #####
 from fec import FEC
-
 fec = FEC()
 
-FORMAT = pyaudio.paInt16
-#FORMAT = 8
-CHANNELS = 2
-RATE = 44100
-CHUNK = 224
- 
-audio = pyaudio.PyAudio()
 
 ############
 ###  Streaming wav File
 wf = wave.open('kygo.wav', 'rb')
-print("Format: "+ str(audio.get_format_from_width(wf.getsampwidth())))
-print("Channel: "+ str(wf.getnchannels()))
-print("Frame: "+ str(wf.getframerate()))
-
-stream = audio.open(format=audio.get_format_from_width(wf.getsampwidth()),
-               channels=wf.getnchannels(),
-               rate=wf.getframerate(),
-               output=True)
-############
-
-# Streaming Audio Input
-# stream = audio.open(format=FORMAT, channels=CHANNELS,
-#                 rate=RATE, input=True,
-#                 frames_per_buffer=CHUNK)
 
 print("recording...")
 #####
@@ -48,10 +27,7 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 try:
     ### Streaming wav
-    streamdata = wf.readframes(CHUNK)
-
-    ######
-    # PLAY ZONE
+    streamdata = wf.readframes(audioHandler.getChunk())
     
     while len(streamdata) >0:
     
@@ -62,31 +38,14 @@ try:
         # print("Raw data: "+ str(len(streamdata)))
         # print("Encoded: "+ str(len(encoded_bytes)))
 
-        streamdata = wf.readframes(CHUNK)
+        streamdata = wf.readframes(audioHandler.getChunk())
         #time.sleep(0.01)
        
 
-
-
-    #####
-
-    # while len(streamdata) >0:
-    #    sock.sendto(streamdata, (MCAST_GRP, MCAST_PORT))
-    #    streamdata = wf.readframes(CHUNK)
-       #time.sleep(0.01)
-    #    print("Sent packet "+str(count))
-    #    count = count+1
-
-
-    ### Streaming Audio Input
-    # while True:       
-    #     sock.sendto(stream.read(CHUNK), (MCAST_GRP, MCAST_PORT))
 finally:
     print('closing socket')
     sock.close()
 
     ###
-    stream.stop_stream()
-    stream.close()
-    audio.terminate()
+    audioHandler.terminate()
     ###

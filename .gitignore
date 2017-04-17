@@ -11,3 +11,10 @@ sample_audio.mp3
 
 
 cost.xlsx
+
+
+
+reedsolo/
+*.pyc
++__pycache__/
++__pycache__/*
