@@ -1,33 +1,29 @@
-import socket
-import struct
-import sys
-
 from threading import Thread
 from queue import Queue
 
 #####
+# Network Modules
+from network.multicastClient import MulticastClient
+multicastClient = MulticastClient()
+
+#####
+# Audio Modules
 from audio.audioHandler import AudioHandler
 audioHandler = AudioHandler()
 
 #####
+# Forward Error Correction Module
 from fec import FEC
 fec = FEC()
 
 
-frameQueue = Queue()
-frameblock = []
 #####
 
-MCAST_GRP = '224.1.1.1'
-MCAST_PORT = 5007
+frameQueue = Queue()
+frameblock = []
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-sock.bind(('', MCAST_PORT))  # use MCAST_GRP instead of '' to listen only
-                             # to MCAST_GRP, not all groups on MCAST_PORT
-mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
 
-sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
+
 
 
 def playAudio(self):
@@ -58,7 +54,7 @@ audioThread = Thread( target=playAudio, args=("Audio", ) )
 audioThread.start()
 
 while True:
-    encodedFrame, address = sock.recvfrom(1024)
+    encodedFrame, address = multicastClient.receive(1024)
 
     # Frames need to be individually decoded
     try:
