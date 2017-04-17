@@ -58,8 +58,10 @@ try:
         encoded_bytes = fec.fec_encode(streamdata)
         sock.sendto(encoded_bytes, (MCAST_GRP, MCAST_PORT))
 
-        print("Raw data: "+ str(len(streamdata)))
-        print("Encoded: "+ str(len(encoded_bytes)))
+        # FEC Debug
+        # print("Raw data: "+ str(len(streamdata)))
+        # print("Encoded: "+ str(len(encoded_bytes)))
+
         streamdata = wf.readframes(CHUNK)
         #time.sleep(0.01)
        
