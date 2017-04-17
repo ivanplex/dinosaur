@@ -24,6 +24,29 @@ class AudioHandler():
 		print("Channel: "+ str(self.CHANNELS))
 		print("Frame: "+ str(self.RATE))
 
+
+	def playAudio(self, frameQueue):
+	    """
+	    Audio Playing thread
+	    
+	    Fetch a block of frames from the frameQueue and 
+	    combine the entire block of frames into one single
+	    bytearray frame. PyAudio then write the block of
+	    audio to audio output.
+	    """
+	    while True:
+	        if frameQueue.qsize() > 0:
+	            # For debugging frameQueue only
+	            print('digested frames. size: '+ str(frameQueue.qsize()))
+
+	            streamData = b''.join(frameQueue.get())
+	            for i in range(0, len(streamData), self.CHUNK):
+	                # writing to the stream is what *actually* plays the sound.
+	                self.stream.write(streamData[i:i+self.CHUNK])
+
+	    return None
+
+
 	def terminate(self):
 		self.stream.stop_stream()
 		self.stream.close()
@@ -31,7 +54,7 @@ class AudioHandler():
 
 	def getStream(self):
 		return self.stream
-		
+
 	def getFormat(self):
 		return self.FORMAT
 

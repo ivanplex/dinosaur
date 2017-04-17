@@ -18,7 +18,6 @@ fec = FEC()
 ############
 ###  Streaming wav File
 wf = wave.open('kygo.wav', 'rb')
-
 print("recording...")
 #####
 
@@ -44,7 +43,4 @@ try:
 finally:
     print('closing socket')
     multicastServer.terminate()
-
-    ###
     audioHandler.terminate()
-    ###
