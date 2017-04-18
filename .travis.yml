@@ -7,6 +7,7 @@ python:
   - "3.6"
 # command to install dependencies
 # install: "pip install -r requirements.txt"
-install: True
+install: 
+  - pip install pytest
 # command to run tests
 script: pytest audio/testAudio.py
