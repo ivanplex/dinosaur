@@ -1,4 +1,4 @@
-from audioHandler import AudioHandler
+from audio.audioHandler import AudioHandler
 
 def test_object():
 	audioHandler = AudioHandler()
