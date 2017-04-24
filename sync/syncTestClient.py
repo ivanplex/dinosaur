@@ -24,14 +24,14 @@ class syncTestClient:
 	serverClientDelta = None
 	starttime = None
 
-	def __init__(self):
+	def __init__(self, triggerTime):
 
-		syncThread = Thread( target=timeConsumer, args=[self.updateDeltaTime] )
+		syncThread = Thread( target=timeConsumer, args=['224.1.1.1', 5005, self.updateDeltaTime] )
 		actionThread = Thread( target=self.timedAction, args=[] )
 
 		syncThread.start()
-		time.sleep(5)
-		self.starttime = datetime.now() + self.serverClientDelta + timedelta(seconds=3)
+		time.sleep(4) #Time to get SYNC!!!
+		self.starttime = triggerTime + self.serverClientDelta
 		actionThread.start()
 
 	def updateDeltaTime(self, delta):
@@ -39,8 +39,9 @@ class syncTestClient:
 		self.serverClientDelta = delta
 
 	def timedAction(self):
+		print(self.starttime)
 		while True:
-			if self.starttime == datetime.now():
+			if self.starttime < datetime.now():
 
 				#define stream chunk   
 				chunk = 1024  

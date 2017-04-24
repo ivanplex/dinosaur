@@ -1,5 +1,6 @@
 """
 Ivan Chan (ivan@ivanplex.com)
+https://github.com/ivanplex
 
 A python implementation of "A Stream-based Time Synchronization Technique
 For Networked Computer Games" by Zachary Booth Simpson 
@@ -13,72 +14,72 @@ from threading import Thread
 from datetime import datetime
 from datetime import timedelta
 
-def timeBroadcaster():
-	
-	#Network setup
-	UDP_IP = "127.0.0.1"
-	UDP_PORT = 5005
+import sys
+sys.path.insert(0, '/home/ivan/ECS/COMP3200 - Part III Individual Project/dinosaur')
 
-	try:
-		while True:
-
-			#Retrieve client datetime
-			dt = str(datetime.now())
-			encodedDT = dt.encode('utf-8') #Convert datetime to byte (length 26)
-
-			sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-			sock.sendto(encodedDT, (UDP_IP, UDP_PORT))
-
-			time.sleep(2)
-
-	finally:
-		sock.close()
-	
-	#send
-	return True
+from network.multicastServer import MulticastServer
+from network.multicastClient import MulticastClient
 
 
-def timeConsumer(cb):
+def timeBroadcaster(MCAST_GRP, MCAST_PORT, interval):
+	"""
+	Broadcast server time using multicast
+
+	:MCAST_GRP: IP address of the multicast group
+	:MCAST_PORT: Port number
+	:interval: Number of second between each server time broadcast
+	:return: return nothing
+	"""
+
+	multicastServer = MulticastServer(MCAST_GRP, MCAST_PORT)
+
+	while True:
+
+		#Retrieve client datetime
+		dt = str(datetime.now())
+		encodedDT = dt.encode('utf-8') #Convert datetime to byte (length 26)
+		
+		multicastServer.send(encodedDT)
+		time.sleep(interval)
+
+
+def timeConsumer(MCAST_GRP, MCAST_PORT,cb):
 	"""
 	Time Consumer calculate the time difference between the server and 
 	the client (this machine). This estimate the time taken for a UDP
 	package to transmit from server to client.
 
+	:MCAST_GRP: IP address of the multicast group
+	:MCAST_PORT: Port number
 	:cb: Call-back returns the time delta
 	:return: return nothing
 	"""
-	#Network setup
-	UDP_IP = "127.0.0.1"
-	UDP_PORT = 5005
-	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-	sock.bind((UDP_IP, UDP_PORT))
-
-	try:
-		while True:
-			#Listen for client's time
-			data, addr = sock.recvfrom(26) # buffer size is 26 bytes
-
-			#Convert into datetime
-			try:
-				decodedData = data.decode('utf-8')
-				clientTime = datetime.strptime(decodedData, '%Y-%m-%d %H:%M:%S.%f')
-
-				#Calculate time difference
-				serverTime = datetime.now()
-				delta = serverTime - clientTime
-				cb(delta)
-				#print(str(delta))
-
-			except ValueError: #Possible data corruption
-				print("> Err [Time Sync]: Incorrect format. Corrupted?")
-				pass
-			except Exception as e: #Log and ignore other exception
-				print("> Err [Time Sync]: "+str(e))
-				pass
 
 
-	finally:
-		sock.close()
+	multicastClient = MulticastClient(MCAST_GRP, MCAST_PORT)
+
+	while True:
+
+		data, addr = multicastClient.receive(26)
+
+		#Convert into datetime
+		try:
+			decodedData = data.decode('utf-8')
+			clientTime = datetime.strptime(decodedData, '%Y-%m-%d %H:%M:%S.%f')
+
+			#Calculate time difference
+			serverTime = datetime.now()
+			delta = serverTime - clientTime
+			cb(delta)
+			#print(str(delta))
+
+		except ValueError: #Possible data corruption
+			print("> Err [Time Sync]: Incorrect format. Corrupted?")
+			pass
+		except Exception as e: #Log and ignore other exception
+			print("> Err [Time Sync]: "+str(e))
+			pass
+
 
 
 # def updateTimeDelta(delta):

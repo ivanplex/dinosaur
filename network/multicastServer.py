@@ -16,7 +16,11 @@ class MulticastServer:
 		self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, 2)
 
 	def send(self, data):
-		self.sock.sendto(data, (self.MCAST_GRP, self.MCAST_PORT))
+		try:
+			self.sock.sendto(data, (self.MCAST_GRP, self.MCAST_PORT))
+		except ValueError: #Possible data corruption
+			print("> Err [Network]: Incorrect format. Corrupted?")
+			pass
 
 	def terminate(self):
 		self.sock.close()
