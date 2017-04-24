@@ -29,7 +29,7 @@ def timeBroadcaster():
 			sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
 			sock.sendto(encodedDT, (UDP_IP, UDP_PORT))
 
-			time.sleep(5)
+			time.sleep(2)
 
 	finally:
 		sock.close()
@@ -81,13 +81,13 @@ def timeConsumer(cb):
 		sock.close()
 
 
-def updateTimeDelta(delta):
-	print(str(delta))
+# def updateTimeDelta(delta):
+# 	print(str(delta))
 
 
-serverThread = Thread( target=timeBroadcaster, args=[] )
-serverThread.start()
+# serverThread = Thread( target=timeBroadcaster, args=[] )
+# serverThread.start()
 
 
-clientThread1 = Thread( target=timeConsumer, args=[updateTimeDelta] )
-clientThread1.start()
+# clientThread1 = Thread( target=timeConsumer, args=[updateTimeDelta] )
+# clientThread1.start()
