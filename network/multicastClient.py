@@ -1,14 +1,17 @@
 import socket
 import struct
 
-class MulticastClient():
+class MulticastClient:
 
-	MCAST_GRP = '224.1.1.1'
-	MCAST_PORT = 5007
+	MCAST_GRP = None
+	MCAST_PORT = None
 
 	sock = None
 
-	def __init__(self):
+	def __init__(self, MCAST_GRP_IP, MCAST_PORT):
+
+		self.MCAST_GRP = MCAST_GRP_IP
+		self.MCAST_PORT = MCAST_PORT
 
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 		self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

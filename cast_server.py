@@ -1,7 +1,11 @@
 #####
 # Network Modules
 from network.multicastServer import MulticastServer
-multicastServer = MulticastServer()
+'''
+Cast multicast traffic from multicast group 
+224.1.1.1 on port 5007
+'''
+multicastServer = MulticastServer('224.1.1.1', 5007)
 
 #####
 # Audio Modules
