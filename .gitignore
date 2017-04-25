@@ -3,6 +3,7 @@ tests/
 .DS_Store
 *.bin
 *.class
+.cache/
 
 sample_audio_16bit_44100Hz.wav
 sample_audio_16bit_16000Hz.wav
