@@ -7,12 +7,13 @@ Test time synchonazation between server and client
 syncTest define a time 
 
 """
+import time
 from threading import Thread
-from timesync import timeBroadcaster
-from syncTestClient import syncTestClient
 from datetime import datetime
 from datetime import timedelta
-import time
+from sync.timesync import timeBroadcaster
+from sync.syncTestClient import syncTestClient
+
 
 '''
 :triggerTime: 

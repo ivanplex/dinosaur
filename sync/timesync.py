@@ -14,8 +14,7 @@ from threading import Thread
 from datetime import datetime
 from datetime import timedelta
 
-import sys
-sys.path.insert(0, '/home/ivan/ECS/COMP3200 - Part III Individual Project/dinosaur')
+#from .sync import network
 
 from network.multicastServer import MulticastServer
 from network.multicastClient import MulticastClient

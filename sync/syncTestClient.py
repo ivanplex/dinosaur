@@ -1,8 +1,8 @@
+import time
 from threading import Thread
 from datetime import datetime
 from datetime import timedelta
-import time
-from timesync import timeConsumer
+from sync.timesync import timeConsumer
 
 import pyaudio  
 import wave  
