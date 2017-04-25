@@ -21,7 +21,7 @@ fec = FECHandler()
 
 ############
 ###  Streaming wav File
-wf = wave.open('kygo.wav', 'rb')
+wf = wave.open('bin/kygo.wav', 'rb')
 print("recording...")
 #####
 

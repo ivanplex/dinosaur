@@ -14,8 +14,6 @@ from threading import Thread
 from datetime import datetime
 from datetime import timedelta
 
-#from .sync import network
-
 from network.multicastServer import MulticastServer
 from network.multicastClient import MulticastClient
 
