@@ -1,12 +1,3 @@
-[submodule "reedsolomon"]
-	path = reedsolomon
-	url = https://github.com/tomerfiliba/reedsolomon
-[submodule "external"]
-	path = external
-	url = https://github.com/tomerfiliba/reedsolomon
-[submodule "external/reddsolomon"]
-	path = external/reddsolomon
-	url = https://github.com/tomerfiliba/reedsolomon
 [submodule "external/reedsolomon"]
 	path = external/reedsolomon
 	url = https://github.com/tomerfiliba/reedsolomon

@@ -15,8 +15,8 @@ import wave
 
 #####
 # Forward Error Correction Module
-from fec import FEC
-fec = FEC()
+from fec.fecHandler import FECHandler
+fec = FECHandler()
 
 
 ############

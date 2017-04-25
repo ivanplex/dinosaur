@@ -1,6 +1,6 @@
 from external.reedsolomon.reedsolo import RSCodec
 
-class FEC:
+class FECHandler:
 
 	rs = None
 
