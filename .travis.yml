@@ -5,8 +5,6 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-before_install:
-  - sudo apt-get install python-pyaudio python3-pyaudio
 # command to install dependencies
 install: "pip install -r requirements.txt"
 
