@@ -1,4 +1,4 @@
-from reedsolo.reedsolo import RSCodec
+from external.reedsolomon.reedsolo import RSCodec
 
 class FEC:
 
