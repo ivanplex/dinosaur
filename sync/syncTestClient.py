@@ -7,22 +7,10 @@ from timesync import timeConsumer
 import pyaudio  
 import wave  
 
-# deltaTime = datetime.now()
-
-# def updateDeltaTime(delta):
-# 	deltaTime = delta
-	
-# syncThread = Thread( target=timeConsumer, args=[updateDeltaTime] )
-# syncThread.start()
-
-# time.sleep(5)
-# dt = datetime.now() + deltaTime
-# starttime = dt + timedelta(seconds=3)
-
 class syncTestClient:
 
 	serverClientDelta = None
-	starttime = None
+	adjustedTime = None
 
 	def __init__(self, triggerTime):
 
@@ -31,7 +19,7 @@ class syncTestClient:
 
 		syncThread.start()
 		time.sleep(4) #Time to get SYNC!!!
-		self.starttime = triggerTime + self.serverClientDelta
+		self.adjustedTime = triggerTime - self.serverClientDelta
 		actionThread.start()
 
 	def updateDeltaTime(self, delta):
@@ -39,10 +27,16 @@ class syncTestClient:
 		self.serverClientDelta = delta
 
 	def timedAction(self):
-		print(self.starttime)
+		#print(self.adjustedTime)
 		while True:
-			if self.starttime < datetime.now():
+			'''
+			'''
+			if (self.adjustedTime < datetime.now()) and (self.adjustedTime + timedelta(microseconds=500)) < datetime.now():
+			# now = datetime.now()
+			# if self.adjustedTime < now:
+			# 	print(now - self.adjustedTime)
 
+				print("PLAY!")
 				#define stream chunk   
 				chunk = 1024  
 

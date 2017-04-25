@@ -20,9 +20,9 @@ The time when server want the client to start playing music
 
 We allow 3 seconds for the clients to sync up!
 '''
-triggerTime = datetime.now() + timedelta(seconds=5)
+triggerTime = datetime.now() + timedelta(seconds=7)
 
-serverThread = Thread( target=timeBroadcaster, args=['224.1.1.1', 5005, 2] )
+serverThread = Thread( target=timeBroadcaster, args=['224.1.1.1', 5005, 1] )
 serverThread.start()
 
 def createClient():
@@ -33,7 +33,7 @@ spawnThread2 = Thread( target=createClient, args=[] )
 spawnThread3 = Thread( target=createClient, args=[] )
 
 spawnThread1.start()
-time.sleep(0.02) # Simulate slightly different start time
+time.sleep(2) # Simulate slightly different start time
 spawnThread2.start()
-time.sleep(0.02) # Simulate slightly different start time
+time.sleep(1) # Simate slightly different start time
 spawnThread3.start()
