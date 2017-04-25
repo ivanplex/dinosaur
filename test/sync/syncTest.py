@@ -12,7 +12,7 @@ from threading import Thread
 from datetime import datetime
 from datetime import timedelta
 from sync.timesync import timeBroadcaster
-from test.syncTestClient import syncTestClient
+from test.sync.syncTestClient import syncTestClient
 
 
 '''
