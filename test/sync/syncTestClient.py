@@ -41,7 +41,7 @@ class syncTestClient:
 				chunk = 1024  
 
 				#open a wav format music  
-				f = wave.open("kygo.wav","rb")  
+				f = wave.open("bin/kygo.wav","rb")  
 				#instantiate PyAudio  
 				p = pyaudio.PyAudio()  
 				#open stream  

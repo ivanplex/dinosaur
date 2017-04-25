@@ -1,7 +1,10 @@
 import wave
+from threading import Thread
+from datetime import datetime
 from audio.audioHandler import AudioHandler
 from network.multicastServer import MulticastServer
 from fec.fecHandler import FECHandler
+import sync.timesync
 
 
 
@@ -46,5 +49,8 @@ if __name__ == "__main__":
     multicastServer = MulticastServer('224.1.1.1', 5007)
     audioHandler = AudioHandler()
     fec = FECHandler()
+
+    timeBroadcastThread = Thread( target=sync.timesync.timeBroadcaster, args=['224.1.1.1', 5005, 1] )
+    timeBroadcastThread.start()
 
     cast()

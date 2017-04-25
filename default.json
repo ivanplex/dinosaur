@@ -1,0 +1,10 @@
+{
+  "audiocast": {
+    "MCAST_IP": "224.1.1.1",
+    "MCAST_PORT": "5007"
+  },
+  "synccast": {
+    "MCAST_IP": "224.1.1.1",
+    "MCAST_PORT": "5005"
+  }
+}

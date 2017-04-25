@@ -76,16 +76,3 @@ def timeConsumer(MCAST_GRP, MCAST_PORT,cb):
 		except Exception as e: #Log and ignore other exception
 			print("> Err [Time Sync]: "+str(e))
 			pass
-
-
-
-# def updateTimeDelta(delta):
-# 	print(str(delta))
-
-
-# serverThread = Thread( target=timeBroadcaster, args=[] )
-# serverThread.start()
-
-
-# clientThread1 = Thread( target=timeConsumer, args=[updateTimeDelta] )
-# clientThread1.start()
