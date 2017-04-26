@@ -42,7 +42,7 @@ class AudioHandler():
 	            streamData = b''.join(frameQueue.get())
 	            for i in range(0, len(streamData), self.CHUNK):
 	                # writing to the stream is what *actually* plays the sound.
-	                self.stream.write(streamData[i:i+self.CHUNK])
+		            self.stream.write(streamData[i:i+self.CHUNK])
 
 	    return None
 

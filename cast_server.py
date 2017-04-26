@@ -20,18 +20,26 @@ def cast():
     try:
 
         ### Streaming wav
-        streamdata = wf.readframes(audioHandler.getChunk())
+        audioData = wf.readframes(audioHandler.getChunk())
+        serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
+        packetToSend = serverTimeStamp + audioData
+
+
         
-        while len(streamdata) >0:
+        while len(audioData) >0:
         
-            encoded_bytes = fec.fec_encode(streamdata)
+            encoded_bytes = fec.fec_encode(audioData)
             multicastServer.send(encoded_bytes)
 
             # FEC Debug
-            # print("Raw data: "+ str(len(streamdata)))
+            # print("Raw data: "+ str(len(audioData)))
             # print("Encoded: "+ str(len(encoded_bytes)))
 
-            streamdata = wf.readframes(audioHandler.getChunk())
+            audioData = wf.readframes(audioHandler.getChunk())
+            serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
+            packetToSend = serverTimeStamp + audioData
+            print(audioData)
+            #print(len(packetToSend))
            
 
     finally:
@@ -50,6 +58,7 @@ if __name__ == "__main__":
     audioHandler = AudioHandler()
     fec = FECHandler()
 
+    # Synchonization time cast
     timeBroadcastThread = Thread( target=sync.timesync.timeBroadcaster, args=['224.1.1.1', 5005, 1] )
     timeBroadcastThread.start()
 

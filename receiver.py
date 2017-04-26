@@ -21,7 +21,15 @@ def listen():
 
             # Frames need to be individually decoded
             try:
-                frameblock.append(fec.fec_decode(encodedFrame))
+                decodedPacket = fec.fec_decode(encodedFrame)
+
+                # First 26 byte is server timestamp
+                #serverTimeStamp = decodedPacket[0:26] 
+                #print(serverTimeStamp.decode('utf-8'))
+                #audioData = decodedPacket[26:]
+
+                frameblock.append(decodedPacket)
+
             except: 
                 print(">>> Broken data, ignoring...")
                 pass
