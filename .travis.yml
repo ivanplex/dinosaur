@@ -11,5 +11,5 @@ install: "pip install -r requirements.txt"
 # command to run tests
 script: 
   - nosetests test/network/multicast.py 
-  - nosetests test/audio/testAudio.py
+#  - nosetests test/audio/testAudio.py
   - nosetests test/fec/fec.py

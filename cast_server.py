@@ -38,7 +38,7 @@ def cast():
             audioData = wf.readframes(audioHandler.getChunk())
             serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
             packetToSend = serverTimeStamp + audioData
-            print(audioData)
+            #print(audioData)
             #print(len(packetToSend))
            
 
