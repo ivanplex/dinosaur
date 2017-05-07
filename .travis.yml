@@ -12,4 +12,4 @@ install: "pip install -r requirements.txt"
 script: 
   - nosetests test/network/multicast.py 
 #  - nosetests test/audio/testAudio.py
-  - nosetests test/fec/fec.py
+#  - nosetests test/fec/fec.py
