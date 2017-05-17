@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+\usepackage{pgfgantt}
+\usepackage{pgfplots}
+
+
+%%--------------------------------------------------------------------------------_
+% New Commands
+
+\newcommand{\supervisor}{Denis A Nicole}
+\newcommand{\secondexaminor}{Professor Kirk Martinez}
+
+%%--------------------------------------------------------------------------------
+
+\begin{document}
+
+\input{cover}
+\pagebreak
+
+
+
+\input{abstract}
+\pagebreak
+
+\tableofcontents
+\pagebreak
+
+\input{acknowledgements}
+\pagebreak
+
+
+
+\input{introduction}
+
+\input{motivation}
+
+
+\input{background}
+
+
+\input{multicast}
+
+
+\input{synchronization}
+
+
+
+\section{Conclusion}
+Significant progress has been made in implementing RM as well as the basics on client recovery. Further client recovery mechanism will soon be added as well as the client synchronization functionality. A rigorous testing will be put in place to ensure the system perform as expected under undesirable network conditions. 
+
+\pagebreak
+\section{Timeline}\label{Timeline}
+
+\textbf{Note: Completed task indicated in purple, incomplete task indicated in grey}
+
+\begin{ganttchart}[%Specs
+     y unit title=0.5cm,
+     y unit chart=0.7cm,
+     vgrid,hgrid,
+     title height=1,
+%     title/.style={fill=none},
+     title label font=\bfseries\footnotesize,
+     bar/.style={fill=purple},
+     bar height=0.7,
+%   progress label text={},
+     group right shift=0,
+     group top shift=0.7,
+     group height=.3,
+     group peaks width={0.2},
+     inline]{1}{24}
+    %labels
+    \gantttitle{Full year plan}{24}\\            
+    \gantttitle{Oct}{4}                    
+    \gantttitle{Nov}{4}
+    \gantttitle{Dec}{2}
+    \gantttitle{Jan}{3}
+    \gantttitle{Feb}{4}
+    \gantttitle{Mar}{4}
+    \gantttitle{Apr}{3} \\
+    % Setting group if any
+    \ganttgroup[inline=false]{Planning}{1}{5}\\ 
+    \ganttbar[progress=100,inline=false]{Setting up}{1}{4}\\
+
+    \ganttgroup[inline=false]{Multicast}{3}{7} \\ 
+    \ganttbar[progress=100,inline=false]{Multicast Prototype}{3}{6} \\
+    \ganttbar[progress=100,inline=false]{Testing}{6}{7} 
+    \\ \\
+	\ganttbar[progress=100,inline=false]{Interim Report}{10}{10} \\
+	
+	\ganttgroup[inline=false]{Recovery}{7}{20} \\ 
+    \ganttbar[progress=40,inline=false]{Implementation}{7}{15} \\ 
+    \ganttbar[progress=20,inline=false]{Testing}{10}{15} \\ 
+	  
+
+    \ganttgroup[inline=false]{Synchronize}{11}{20} \\ 
+    \ganttbar[progress=0,inline=false]{Implementation}{14}{19} \\ 
+    \ganttbar[progress=0,inline=false]{Testing}{14}{19} \\  \\
+    
+    \ganttbar[progress=0,inline=false]{Writing Report}{18}{24}\\ 
+    \ganttbar[progress=0,inline=false]{Final Testing}{18}{23} \\ 
+\end{ganttchart}
+
+
+\pagebreak
+\bibliography{ref} 
+\bibliographystyle{ieeetr}
+
+\end{document}
