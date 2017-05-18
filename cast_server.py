@@ -14,15 +14,15 @@ def cast():
     """
 
     # Streaming wav File
-    wf = wave.open('bin/kygo.wav', 'rb')
+    wf = wave.open('bin/kygo22050.wav', 'rb')
     print("recording...")
 
     try:
 
         ### Streaming wav
         audioData = wf.readframes(audioHandler.getChunk())
-        serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
-        packetToSend = serverTimeStamp + audioData
+        # serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
+        # packetToSend = serverTimeStamp + audioData
 
 
         
@@ -36,8 +36,8 @@ def cast():
             # print("Encoded: "+ str(len(encoded_bytes)))
 
             audioData = wf.readframes(audioHandler.getChunk())
-            serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
-            packetToSend = serverTimeStamp + audioData
+            # serverTimeStamp = str(datetime.now()).encode('utf-8') #Convert datetime to byte (length 26)
+            # packetToSend = serverTimeStamp + audioData
             #print(audioData)
             #print(len(packetToSend))
            
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     fec = FECHandler()
 
     # Synchonization time cast
-    timeBroadcastThread = Thread( target=sync.timesync.timeBroadcaster, args=['224.1.1.1', 5005, 1] )
-    timeBroadcastThread.start()
+    # timeBroadcastThread = Thread( target=sync.timesync.timeBroadcaster, args=['224.1.1.1', 5005, 1] )
+    # timeBroadcastThread.start()
 
     cast()

@@ -4,7 +4,7 @@ class AudioHandler():
 
 	FORMAT = pyaudio.paInt16
 	CHANNELS = 2
-	RATE = 44100
+	RATE = 22050
 	CHUNK = 224
 
 	audio = None
