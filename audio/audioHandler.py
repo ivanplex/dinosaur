@@ -1,4 +1,6 @@
 import pyaudio
+from datetime import datetime
+from datetime import timedelta
 
 class AudioHandler():
 
@@ -39,7 +41,16 @@ class AudioHandler():
 	            # For debugging frameQueue only
 	            print('digested frames. size: '+ str(frameQueue.qsize()))
 
-	            streamData = b''.join(frameQueue.get())
+
+	            frameBlockPair = frameQueue.get()
+	            serverTime = datetime.strptime(frameBlockPair[0].decode('utf-8'), '%Y-%m-%d %H:%M:%S.%f')
+	            print(serverTime)
+	            #serverTime = frameBlockPair[0]	# Starting time to play block
+	            audioData = frameBlockPair[1]	# block audio data
+
+	            streamData = b''.join(audioData)
+
+	            # if(datetime.now() > (serverTime + timedelta(seconds=2))):
 	            for i in range(0, len(streamData), self.CHUNK):
 	                # writing to the stream is what *actually* plays the sound.
 		            self.stream.write(streamData[i:i+self.CHUNK])
